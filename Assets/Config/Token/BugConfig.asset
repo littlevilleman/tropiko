@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55064a03b61341d4b8a28e5ab3db1c3f, type: 3}
+  m_Name: BugConfig
+  m_EditorClassIdentifier: 
+  Name: Bug
+  Type: 3
+  color: {r: 0.5254902, g: 0.22352943, b: 0.86274517, a: 1}
+  animator: {fileID: 9100000, guid: 0a40731caf4c2674fbfb2e1d060eda9b, type: 2}

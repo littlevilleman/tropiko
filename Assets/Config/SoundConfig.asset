@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd39f9729ea18f4292b9abf551f4b3e, type: 3}
+  m_Name: SoundConfig
+  m_EditorClassIdentifier: 
+  clips:
+  - sound: 0
+    clip: {fileID: 8300000, guid: 3382f1d2c52f3a94fa486ff17a008891, type: 3}
+  - sound: 1
+    clip: {fileID: 8300000, guid: efb197fa7d3d22642b1a76d1fad1683b, type: 3}
+  - sound: 2
+    clip: {fileID: 8300000, guid: 564e13ce58236cb4b828b7d8d6de8e91, type: 3}
+  - sound: 3
+    clip: {fileID: 8300000, guid: 6501a0f22191e3743963d63835a9f8a3, type: 3}
+  - sound: 4
+    clip: {fileID: 8300000, guid: 49db78897d3d6f94e99c4d574c9ff29f, type: 3}
+  - sound: 5
+    clip: {fileID: 8300000, guid: 95d2e550ce9804c45a70eaa0fa48736f, type: 3}
+  - sound: 6
+    clip: {fileID: 8300000, guid: 8f6f86d39f82db0478fb9e9f05400ee5, type: 3}
+  mainMenuClip: {fileID: 0}
+  gameMusicClip: {fileID: 8300000, guid: 7aa277b1c667da64a8262714e5a15f29, type: 3}
