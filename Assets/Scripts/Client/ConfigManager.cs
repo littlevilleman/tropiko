@@ -1,6 +1,5 @@
 using Config;
 using Core;
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ namespace Client
     {
         [SerializeField] private TokenConfig[] tokens;
         [SerializeField] private AudioConfig sounds;
+        [SerializeField] private PaletteConfig palette;
+        [SerializeField] private MatchConfig match;
 
         public TokenConfig GetTokenConfig(ETokenType type)
         {
@@ -24,6 +25,16 @@ namespace Client
         public AudioClip GetMusicClip()
         {
             return sounds.GetMusicClip();
+        }
+
+        public Color GetGameColor(int index)
+        {
+            return palette.GetColor(index);
+        }
+
+        public MatchConfig GetMatchConfig()
+        {
+            return match;
         }
     }
 }

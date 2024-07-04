@@ -16,16 +16,6 @@ namespace Core.Map
         public void RemoveToken(Vector2Int location);
     }
 
-    public interface IPieceMap : ITokenMap
-    {
-        public Vector2 Position { get; }
-        public Vector2Int Location { get; }
-
-        public void Locate(IBoardMap board);
-        public void Move(IBoardMap board, bool left);
-        public void Rotate(IBoardMap board, bool left);
-    }
-
     public abstract class TokenMap : ITokenMap
     {
         public Vector2Int Size { get; protected set; }
@@ -48,12 +38,20 @@ namespace Core.Map
 
         protected bool IsOverflowLocation(IBoardMap board, Vector2Int location)
         {
-            return IsValidLocation(board, location + Vector2Int.down) && location.y >= board.Size.y - 2;
+            return location.y >= board.Size.y - 2;
         }
 
-        protected bool IsValidLocation(IBoardMap map, Vector2Int location)
+        public static bool IsColisionLocation(IBoardMap map, Vector2Int location)
         {
             return location.y < 0 || map.GetToken(location.x, location.y) != null;
+        }
+
+        public static Vector2 ClampPosition(IBoardMap board, Vector2 pos)
+        {
+            pos.x = Mathf.Clamp(pos.x, 0, board.Size.x - 1);
+            pos.y = Mathf.Clamp(pos.y, 0, board.Size.y + 2);
+
+            return pos;
         }
     }
 }

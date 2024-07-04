@@ -3,17 +3,14 @@ using UnityEngine;
 
 namespace Client
 {
-    public class BoardLocator : MonoBehaviour
+    public static class BoardLocator
     {
-        float screenWidth = 33.5f;
-        float boardWidth = 7f;
-        float yPos = 0f;
+        const float screenWidth = 33.5f;
+        const float boardWidth = 7f;
+        const float yPos = 0f;
 
-
-        public void UpdateBoardsLocation()
+        public static void UpdateBoardsLocation(BoardBehavior[] boards)
         {
-            BoardBehavior[] boards = GetComponentsInChildren<BoardBehavior>();
-
             for (int i = 0; i < boards.Length; i++)
             {
                 float offset = boardWidth * i - boards.Length * screenWidth / boardWidth + boards.Length / 2f + i + 2f;

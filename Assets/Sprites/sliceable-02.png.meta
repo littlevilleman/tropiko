@@ -193,6 +193,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: sliceable-02_4
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 42
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 14, y: 14, z: 14, w: 14}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7283360752e213340a9cfbac1c331ebd
+      internalID: 1462522863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -208,6 +229,7 @@ TextureImporter:
       sliceable-02_1: 1541178306
       sliceable-02_2: 1035938723
       sliceable-02_3: -427099899
+      sliceable-02_4: 1462522863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

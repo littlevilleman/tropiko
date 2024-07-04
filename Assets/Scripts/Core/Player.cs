@@ -11,6 +11,7 @@ namespace Core
         public string Name { get; }
         public IBoard Board { get; }
         public long Score { get; }
+        public bool IsDefeat { get; }
     }
 
     public class Player : IPlayer
@@ -21,6 +22,7 @@ namespace Core
         public string Name { get; private set; }
         public IBoard Board { get; private set; }
         public long Score { get; private set; }
+        public bool IsDefeat { get; private set; }
 
         public Player(string name, IBoard board) 
         {
@@ -33,21 +35,21 @@ namespace Core
 
         private void OnComboDispatch(List<IToken> token, int comboIndex)
         {
-            ReceiveScore(1500);
+            ReceiveScore(this, 1500);
         }
 
         private void OnBoardOverflow()
         {
             Board.OnOverflow -= OnBoardOverflow;
             Board.ComboDispatcher.OnDispatch -= OnComboDispatch;
-
+            IsDefeat = true;
             OnDefeat?.Invoke(this);
         }
 
-        public void ReceiveScore(long score)
+        public void ReceiveScore(IPlayer player, long score)
         {
             Score += score;
-            OnReceiveScore?.Invoke(score);
+            OnReceiveScore?.Invoke(this, score);
         }
     }
 }

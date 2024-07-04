@@ -27,5 +27,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 95d2e550ce9804c45a70eaa0fa48736f, type: 3}
   - sound: 6
     clip: {fileID: 8300000, guid: 8f6f86d39f82db0478fb9e9f05400ee5, type: 3}
+  - sound: 7
+    clip: {fileID: 8300000, guid: 475931755b982f24d8e24043e783729a, type: 3}
   mainMenuClip: {fileID: 0}
   gameMusicClip: {fileID: 8300000, guid: 7aa277b1c667da64a8262714e5a15f29, type: 3}

@@ -24,19 +24,16 @@ namespace Client
             gameObject.SetActive(true);
         }
 
-        private void OnReceiveScore(long score)
+        private void OnReceiveScore(IPlayer player, long score)
         {
             scoreLabel.text = player.Score.ToString();
         }
 
         private void OnDispatchCombo(List<IToken> tokens, int comboIndex)
         {
-            comboIndex = Mathf.Clamp(comboIndex, 0, 3);
             ScoreWidget widget = scoreWidgetPool.Pull(GetComponent<RectTransform>());
             widget.onRecycle += scoreWidgetPool.Recycle;
             widget.Display(scoreLabel.transform.position + Vector3.up * 14f + Vector3.right * 56f, 150, ECombination.Combox1);
-
-            GameManager.Instance.Audio.PlaySound(ESound.Combo_01 + comboIndex);
         }
 
         private void OnTakePiece(IPiece piece, IToken[,] nextPiece)

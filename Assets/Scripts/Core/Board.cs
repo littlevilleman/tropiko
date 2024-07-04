@@ -12,15 +12,17 @@ namespace Core
         public event TakePiece OnTakePiece;
 
         public IComboDispatcher ComboDispatcher { get; }
-        public void Update(float time, bool push);
+        public void Update(float time, float speed);
         public void MovePiece(bool left = false);
         public void RotatePiece(bool left = false);
+        public void PushPiece(bool push);
     }
 
     public class Board : TokenMap, IBoard
     {
         public event OverflowBoard OnOverflow;
         public event TakePiece OnTakePiece;
+
         public IComboDispatcher ComboDispatcher { get; protected set; }
         public void MovePiece(bool left = false) => currentPiece?.Move(this, left);
         public void RotatePiece(bool left = false) => currentPiece?.Rotate(this, left);
@@ -37,9 +39,10 @@ namespace Core
 
             ComboDispatcher = new ComboDispatcher();
             ComboDispatcher.OnDispatch += OnDispatchCombo;
+            nextPiecePreview = pieceFactory.GetPiecePreview(this);
         }
 
-        public void Update(float time, bool push)
+        public void Update(float time, float speed)
         {
             if (!ComboDispatcher.IsClear)
             {
@@ -49,18 +52,30 @@ namespace Core
 
             if (currentPiece != null)
             {
-                currentPiece.Update(this, time, push);
+                currentPiece.Update(this, time, speed);
                 return;
             }
 
-            currentPiece = pieceFactory.Build(this, nextPiecePreview);//nextPiece;
+            currentPiece = pieceFactory.Build(this, nextPiecePreview);
             nextPiecePreview = pieceFactory.GetPiecePreview(this);
+            OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
+        }
 
-            if (currentPiece != null)
+        public void LocatePiece(IPiece piece)
+        {
+            if (IsOverflowLocation(this, piece.Location))
             {
-                //currentPiece.TakeControl(this);
-                OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
+                OnOverflow?.Invoke();
+                Dispose();
+                Debug.Log("Board - Overflow - " + piece);
+                return;
             }
+
+            //await Task.Delay(250);
+
+            piece.Locate(this);
+            //await Task.Delay(250);
+            currentPiece = null;
         }
 
         public virtual void LocateToken(IToken token)
@@ -72,21 +87,6 @@ namespace Core
         public virtual void RemoveToken(Vector2Int location)
         {
             Tokens[location.x, location.y] = null;
-        }
-
-        public async void LocatePiece(IPiece piece)
-        {
-            if (IsOverflowLocation(this, piece.Location))
-            {
-                OnOverflow?.Invoke();
-                Dispose();
-                Debug.Log("Board - Overflow - " + piece);
-                return;
-            }
-
-            piece.Locate(this);
-            await Task.Delay(250);
-            currentPiece = null;
         }
 
         protected async void OnDispatchCombo(List<IToken> comboStack, int index)
@@ -105,11 +105,14 @@ namespace Core
 
         public override void Dispose()
         {
-            //nextPiece.Dispose();
-            currentPiece.Dispose();
             base.Dispose();
-
+            currentPiece.Dispose();
             Debug.Log("Board - Board Disposed - " + this);
+        }
+
+        public void PushPiece(bool push)
+        {
+            currentPiece?.Push(push);
         }
     }
 }

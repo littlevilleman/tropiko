@@ -6,26 +6,26 @@ namespace Core
 {
     public interface IPiece : IPieceMap
     {
+        public event CollidePiece OnCollide;
         public event LocatePiece OnLocate;
         public event DisposePiece OnDispose;
-        public bool IsPush { get; }
-        public void Update(IBoard board, float time, bool push);
+        public float CollisionTime { get; }
+        public void Update(IBoard board, float time, float speed = 1f);
     }
 
-    public enum ETokenState
+    public enum EPieceState
     {
-        Control, Located
+        Control, Collide, Located
     }
 
     public class Piece : PieceMap, IPiece
     {
+        public event CollidePiece OnCollide;
         public event LocatePiece OnLocate;
         public event DisposePiece OnDispose;
-        public bool IsPush { get; private set; }
-
-        private ETokenState State = ETokenState.Control;
-        private float Speed => IsPush ? 10F : 1f;
-        public override string ToString() => $"{Location}";
+        public float CollisionTime { get; private set; } = .5f;
+        private float Speed = 1f;
+        private EPieceState State = EPieceState.Control;
 
         public Piece(IToken[,] tokensSetup)
         {
@@ -33,44 +33,59 @@ namespace Core
             Tokens = tokensSetup;
         }
 
-        public void Update(IBoard board, float time, bool push)
+        public override void Update(IBoard board, float time, float speed = 1f)
         {
-            if (State == ETokenState.Located)
+            if (State == EPieceState.Located)
                 return;
 
-            if (IsValidLocation(board, Location + Vector2Int.down))
-            {
-                State = ETokenState.Located;
-                board.LocatePiece(this);
+            if (Collide(board))
                 return;
-            }
 
-            IsPush = push;
-            State = ETokenState.Control;
-
-            base.Update(board, time, Speed);
+            Speed = speed;
+            CollisionTime = .5f;
+            State = EPieceState.Control;
+            base.Update(board, time, IsPush ? 20F : Speed);
         }
 
-        public override void Locate(IBoardMap board)
+        private bool Collide(IBoard board)
         {
-            base.Locate(board);
-            IsPush = false;
+            if (IsColisionLocation(board, Location + Vector2Int.down))
+            {
+                if (State == EPieceState.Control)
+                    OnCollide?.Invoke(this);
+
+                if (CollisionTime <= 0f)
+                    board.LocatePiece(this);
+
+                CollisionTime -= Time.deltaTime;
+                State = EPieceState.Collide;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public override void Locate(IBoardMap board, bool falling = false)
+        {
+            base.Locate(board, falling);
+            State = EPieceState.Located;
             OnLocate?.Invoke(this);
             Debug.Log("Piece - Locate - " + this);
         }
 
         public override void Move(IBoardMap board, bool left = false)
         {
-            if (State != ETokenState.Control)
+            if (State == EPieceState.Located)
                 return;
-            
+
             base.Move(board, left);
             Debug.Log("Piece - Move - " + this);
         }
 
         public override void Rotate(IBoardMap board, bool left = false)
         {
-            if (State != ETokenState.Control)
+            if (State == EPieceState.Located)
                 return;
             
             base.Rotate(board, left);
