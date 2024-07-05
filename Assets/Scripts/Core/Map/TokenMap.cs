@@ -6,6 +6,7 @@ namespace Core.Map
     {
         public Vector2Int Size { get; }
         public IToken GetToken(int x, int y);
+        public bool GetToken(int x, int y, out IToken token);
         public void Dispose();
     }
 
@@ -27,6 +28,12 @@ namespace Core.Map
                 return null;
 
             return Tokens[x, y];
+        }
+
+        public bool GetToken(int x, int y, out IToken token)
+        {
+            token = GetToken(x, y);
+            return token != null;
         }
 
         public virtual void Dispose()

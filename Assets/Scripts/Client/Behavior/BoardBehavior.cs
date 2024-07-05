@@ -42,6 +42,7 @@ namespace Client
 
         private void OnTakePiece(IPiece piece, IToken[,] nextPiece)
         {
+            GameManager.Instance.Audio.PlaySound(ESound.GeneratePiece);
             currentPieceBhv.Setup(piece);
             nextPieceBhv.Setup(nextPiece);
         }

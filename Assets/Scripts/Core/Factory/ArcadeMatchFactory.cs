@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-
 namespace Core
 {
     public interface IMatchConfig<T> where T : IMatch
     {
         public int GetLevel(long score);
-        public List<ETokenType> GetLevelTokens(int level);
+        public ITokenConfig GetRandomToken(int level);
         public float GetLevelSpeed(int level);
     }
 
@@ -33,6 +31,7 @@ namespace Core
 
         public IArcadeMatch Build(IMatchConfig<IArcadeMatch> config)
         {
+            boardFactory.pieceFactory.Config = config;
             return new ArcadeMatch(config, playerFactory.Build("Player01"));
         }
     }

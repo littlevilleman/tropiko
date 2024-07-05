@@ -14,7 +14,7 @@ namespace Client
 
         public TokenConfig GetTokenConfig(ETokenType type)
         {
-            return tokens.Where(x => x.Type == type).FirstOrDefault();
+            return tokens.Where(x => x.type == type).FirstOrDefault();
         }
 
         public AudioClip GetSoundClip(ESound sound)

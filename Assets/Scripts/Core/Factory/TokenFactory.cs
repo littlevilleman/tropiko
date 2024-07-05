@@ -1,7 +1,5 @@
 using System;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static Core.Events;
 
 namespace Core
@@ -10,30 +8,39 @@ namespace Core
     {
         public event BuildToken OnBuildToken;
 
-        public IToken Build(IBoard board, ETokenType type, Vector2 position);
+        public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position);
         public IToken Build(IBoard board, IToken tokenSetup);
-        public IToken GetRandomToken(IBoard board, int i);
+        public IToken GetRandomToken(IBoard board, Vector2 position);
+        public IToken GetRandomToken(IMatchConfig<IArcadeMatch> config, int level, Vector2 position);
     }
 
     public class TokenFactory : ITokenFactory
     {
         public event BuildToken OnBuildToken;
 
-        public IToken Build(IBoard board, ETokenType type, Vector2 position)
+        public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position)
         {
-            IToken token = new Token(type, position);
+            IToken token = new Token(type, position, strategy);
             OnBuildToken?.Invoke(token, board);
             return token;
         }
 
         public IToken Build(IBoard board, IToken tokenSetup)
         {
-            return Build(board, tokenSetup.Type, tokenSetup.Position);
+            IComboStrategy strategy = tokenSetup.Type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
+            return Build(board, tokenSetup.Type, strategy, tokenSetup.Position);
         }
 
-        public IToken GetRandomToken(IBoard board, int i)
+        public IToken GetRandomToken(IBoard board, Vector2 position)
         {
-            return new Token(GetRandomType(), new Vector2Int(2, 12) + i * Vector2Int.up);
+            return new Token(GetRandomType(), position, new LineComboStrategy());
+        }
+
+        public IToken GetRandomToken(IMatchConfig<IArcadeMatch> config, int level, Vector2 position)
+        {
+            ITokenConfig tokenConfig = config.GetRandomToken(level);
+            Debug.Log("STRATEGY " + tokenConfig.GetComboStrategy());
+            return new Token(tokenConfig.Type, position, tokenConfig.GetComboStrategy());
         }
 
         private ETokenType GetRandomType()

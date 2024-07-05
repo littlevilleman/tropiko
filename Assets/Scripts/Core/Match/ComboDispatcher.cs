@@ -5,22 +5,29 @@ using static Core.Events;
 
 namespace Core
 {
+    public static class MapUtils
+    {
+        private static Vector2Int[] Horizontal = { Vector2Int.right, Vector2Int.left };
+        private static Vector2Int[] Vertical = { Vector2Int.up, Vector2Int.down };
+        private static Vector2Int[] LeftDiagonal = { new Vector2Int(-1, 1), new Vector2Int(1, -1) };
+        private static Vector2Int[] RightDiagonal = { new Vector2Int(1, 1), new Vector2Int(-1, -1) };
+        public static List<Vector2Int[]> Directions => new List<Vector2Int[]> { Horizontal, Vertical, LeftDiagonal, RightDiagonal };
+    }
+
     public interface IComboDispatcher
     {
         public event DispatchCombo OnDispatch;
-        void AddCandidate(IToken token);
-        void Update(IBoard board);
-
-        bool IsClear { get; }
+        public void AddCandidate(IToken token);
+        public bool TryDispatch(IBoard board);
     }
 
     public class ComboDispatcher : IComboDispatcher
     {
         public event DispatchCombo OnDispatch;
-        public bool IsClear => candidates.Count == 0;
 
         private List<IToken> candidates = new List<IToken>();
-        private IToken CurrentCandidate;
+
+        private bool IsDispatching;
         private int comboIndex = 0;
 
         public void AddCandidate(IToken token)
@@ -28,85 +35,32 @@ namespace Core
             candidates.Add(token);
         }
 
-        public void Update(IBoard board)
+        public bool TryDispatch(IBoard board)
         {
-            if (CurrentCandidate != null)
-                return;
+            if(candidates.Count > 0 && !IsDispatching)
+            {
+                IsDispatching = true;
+                Dispatch(board, candidates[0]);
+            }
 
-            CurrentCandidate = candidates[0];
-            List<IToken> comboStack = GetComboTokens(board, CurrentCandidate);
-            Dispatch(board, comboStack);
+            comboIndex = 0;
+            return IsDispatching;
         }
 
-        private async void Dispatch(IBoard board, List<IToken> comboStack)
+        private async void Dispatch(IBoard board, IToken candidate)
         {
-            if (comboStack.Count >= 3)
+            ComboResultContext comboResult = candidate.Perform(board);
+
+            if (comboResult.result == EComboResult.SUCCESS)
             {
-                OnDispatch?.Invoke(comboStack, comboIndex);
+                OnDispatch?.Invoke(comboResult.tokens, comboIndex);
                 comboIndex++;
-                await Task.Delay(250);
+
+                await Task.Delay(250 * (comboIndex + 1));
             }
 
-            candidates.RemoveAll(x => comboStack.Contains(x));
-            CurrentCandidate = null;
-
-            if (candidates.Count == 0)
-                comboIndex = 0;
-        }
-
-        private List<IToken> GetComboTokens(IBoard board, IToken sourceToken)
-        {
-            List<IToken> list = new List<IToken> { sourceToken };
-
-            List<IToken> horizontal = new List<IToken>();
-            List<IToken> vertical = new List<IToken>();
-            List<IToken> diagonalLeft = new List<IToken>();
-            List<IToken> diagonalRight = new List<IToken>();
-
-            vertical.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, Vector2Int.down));
-            vertical.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, Vector2Int.up));
-
-            horizontal.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, Vector2Int.left));
-            horizontal.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, Vector2Int.right));
-
-            diagonalLeft.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, new Vector2Int(-1, 1)));
-            diagonalLeft.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, new Vector2Int(1, -1)));
-
-            diagonalRight.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, new Vector2Int(-1, -1)));
-            diagonalRight.AddRange(GetLineNeighbours(board, sourceToken.Type, sourceToken.Location, new Vector2Int(1, 1)));
-
-            if (horizontal.Count >= 2)
-                list.AddRange(horizontal);
-
-            if (vertical.Count >= 2)
-                list.AddRange(vertical);
-
-            if (diagonalRight.Count >= 2)
-                list.AddRange(diagonalRight);
-
-            if (diagonalLeft.Count >= 2)
-                list.AddRange(diagonalLeft);
-
-            return list;
-        }
-
-        private static List<IToken> GetLineNeighbours(IBoard board, ETokenType type, Vector2Int location, Vector2Int direction)
-        {
-            List<IToken> lineNeighbours = new List<IToken>();
-            location += direction;
-
-            while (location.x >= 0 && location.y >= 0 && location.x < board.Size.x && location.y < board.Size.y)
-            {
-                IToken neighbourToken = board.GetToken(location.x, location.y);
-
-                if (neighbourToken == null || neighbourToken.Type != type)
-                    break;
-
-                lineNeighbours.Add(neighbourToken);
-                location += direction;
-            }
-
-            return lineNeighbours;
+            candidates.RemoveAll(x => comboResult.tokens.Contains(x));
+            IsDispatching = false;
         }
     }
 }

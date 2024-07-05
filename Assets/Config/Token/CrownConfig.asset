@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CrownConfig
   m_EditorClassIdentifier: 
   Name: Crown
-  Type: 5
+  type: 5
   color: {r: 1, g: 0.7843138, b: 0.34117648, a: 1}
   animator: {fileID: 9100000, guid: e3d31870381c3a14d93c71761bd5f503, type: 2}

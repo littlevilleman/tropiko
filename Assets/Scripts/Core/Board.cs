@@ -12,7 +12,7 @@ namespace Core
         public event TakePiece OnTakePiece;
 
         public IComboDispatcher ComboDispatcher { get; }
-        public void Update(float time, float speed);
+        public void Update(float time, float speed, int level = 0);
         public void MovePiece(bool left = false);
         public void RotatePiece(bool left = false);
         public void PushPiece(bool push);
@@ -39,16 +39,13 @@ namespace Core
 
             ComboDispatcher = new ComboDispatcher();
             ComboDispatcher.OnDispatch += OnDispatchCombo;
-            nextPiecePreview = pieceFactory.GetPiecePreview(this);
+            nextPiecePreview = pieceFactory.GetPiecePreview(0);
         }
 
-        public void Update(float time, float speed)
+        public void Update(float time, float speed, int level = 0)
         {
-            if (!ComboDispatcher.IsClear)
-            {
-                ComboDispatcher.Update(this);
+            if (ComboDispatcher.TryDispatch(this))
                 return;
-            }
 
             if (currentPiece != null)
             {
@@ -57,7 +54,7 @@ namespace Core
             }
 
             currentPiece = pieceFactory.Build(this, nextPiecePreview);
-            nextPiecePreview = pieceFactory.GetPiecePreview(this);
+            nextPiecePreview = pieceFactory.GetPiecePreview(level);
             OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
         }
 
@@ -71,10 +68,7 @@ namespace Core
                 return;
             }
 
-            //await Task.Delay(250);
-
             piece.Locate(this);
-            //await Task.Delay(250);
             currentPiece = null;
         }
 

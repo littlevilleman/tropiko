@@ -2,9 +2,7 @@ using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace Config
 {
@@ -25,15 +23,16 @@ namespace Config
             return Mathf.Clamp(speedByLevel.Evaluate(level * 1f / levels.Count), 1f, 20f);
         }
 
-        public List<ETokenType> GetLevelTokens(int level)
+        public ITokenConfig GetRandomToken(int level)
         {
-            return levels[level].tokens;
+            List<TokenConfig> tokens = levels[level].tokens.ToList();
+            return tokens[UnityEngine.Random.Range(0, tokens.Count)];
         }
     }
 
     [Serializable]
     public class ArcadeMatchLevelConfig
     {
-        public List<ETokenType> tokens = new List<ETokenType>() { ETokenType.WATER, ETokenType.LEAF, ETokenType.BUG };
+        public List<TokenConfig> tokens = new List<TokenConfig>();
     }
 }

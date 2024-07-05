@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55064a03b61341d4b8a28e5ab3db1c3f, type: 3}
-  m_Name: WaterConfig
+  m_Name: BombConfig
   m_EditorClassIdentifier: 
-  Name: Water
-  type: 1
-  color: {r: 0.29803923, g: 0.69411767, b: 0.69803923, a: 1}
-  animator: {fileID: 9100000, guid: 2a994ab8a84b5114ab13e7c12aad6084, type: 2}
+  Name: Bomb
+  type: 6
+  color: {r: 1, g: 1, b: 1, a: 1}
+  animator: {fileID: 9100000, guid: 92aa5eae2edff4e4cba3054584cdebee, type: 2}

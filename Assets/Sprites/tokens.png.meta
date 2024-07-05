@@ -676,6 +676,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tokens_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 30
+        width: 14
+        height: 14
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a4eaa1bd8cf2a34dbef33233fc712be
+      internalID: 1927458317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -707,6 +728,7 @@ TextureImporter:
       tokens_24: 1589766370
       tokens_25: 288001495
       tokens_26: 1712778198
+      tokens_27: 1927458317
       tokens_3: -985890268
       tokens_4: 756842193
       tokens_5: 2026426836
