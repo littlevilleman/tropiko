@@ -1,5 +1,4 @@
 using Core;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,12 +17,12 @@ namespace Client
 
         private void OnClickMultiPlayerButton()
         {
-            GameManager.Instance.Match.Launch(EMatchMode.Multiplayer);
+            GameManager.Instance.Match.Launch<IMultiplayerMatchMode>();
         }
 
         private void OnClickSinglePlayerButton()
         {
-            GameManager.Instance.Match.Launch(EMatchMode.Single);
+            GameManager.Instance.Match.Launch<IArcadeMatchMode>();
         }
 
         protected override void OnClose()

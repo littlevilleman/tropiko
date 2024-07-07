@@ -14,7 +14,7 @@ namespace Core
     public interface ITokenConfig
     {
         public ETokenType Type { get; }
-        public IComboStrategy GetComboStrategy();
+        public IComboStrategy ComboStrategy { get; }
     }
 
     public interface IToken : ILocatable
@@ -42,7 +42,7 @@ namespace Core
         public override string ToString() => $"{Type} - {Location}";
         private IComboStrategy comboStrategy;
 
-        public Token(ETokenType typeSetup, Vector2 positionSetup, IComboStrategy comboStrategySetup)
+        public Token(ETokenType typeSetup, IComboStrategy comboStrategySetup, Vector2 positionSetup)
         {
             Type = typeSetup;
             Position = positionSetup;
@@ -51,12 +51,12 @@ namespace Core
 
         public void Update(IBoardMap board, Vector2 position)
         {
-            Position = TokenMap.ClampPosition(board, position);
+            Position = MapUtils.ClampPosition(board, position);
         }
 
         public void Locate(IBoardMap board, bool falling = false)
         {
-            Update(board, falling ? GetFallLocation(board) : Location);
+            Update(board, falling ? MapUtils.GetFallLocation(board, Location) : Location);
             board.LocateToken(this);
             OnLocate?.Invoke(this, falling);
             Debug.Log("Token - Locate - " + this);
@@ -84,20 +84,6 @@ namespace Core
         public void Dispose()
         {
             OnDispose?.Invoke();
-        }
-
-        protected Vector2Int GetFallLocation(IBoardMap board)
-        {
-            Vector2Int fallLocation = Location;
-            while (fallLocation.y > 0)
-            {
-                if (board.GetToken(fallLocation.x, fallLocation.y - 1) != null)
-                    break;
-
-                fallLocation += Vector2Int.down;
-            }
-
-            return fallLocation;
         }
     }
 

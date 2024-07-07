@@ -47,18 +47,5 @@ namespace Core.Map
         {
             return location.y >= board.Size.y - 2;
         }
-
-        public static bool IsColisionLocation(IBoardMap map, Vector2Int location)
-        {
-            return location.y < 0 || map.GetToken(location.x, location.y) != null;
-        }
-
-        public static Vector2 ClampPosition(IBoardMap board, Vector2 pos)
-        {
-            pos.x = Mathf.Clamp(pos.x, 0, board.Size.x - 1);
-            pos.y = Mathf.Clamp(pos.y, 0, board.Size.y + 2);
-
-            return pos;
-        }
     }
 }

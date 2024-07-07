@@ -10,9 +10,8 @@ namespace Core
     {
         public event OverflowBoard OnOverflow;
         public event TakePiece OnTakePiece;
-
         public IComboDispatcher ComboDispatcher { get; }
-        public void Update(float time, float speed, int level = 0);
+        public void Update(float time, float speed, int level = 0, float collisionTime = .5f);
         public void MovePiece(bool left = false);
         public void RotatePiece(bool left = false);
         public void PushPiece(bool push);
@@ -42,14 +41,14 @@ namespace Core
             nextPiecePreview = pieceFactory.GetPiecePreview(0);
         }
 
-        public void Update(float time, float speed, int level = 0)
+        public void Update(float time, float speed, int level = 0, float collisionTime = .5f)
         {
             if (ComboDispatcher.TryDispatch(this))
                 return;
 
             if (currentPiece != null)
             {
-                currentPiece.Update(this, time, speed);
+                currentPiece.Update(this, time, speed, collisionTime);
                 return;
             }
 
@@ -64,7 +63,6 @@ namespace Core
             {
                 OnOverflow?.Invoke();
                 Dispose();
-                Debug.Log("Board - Overflow - " + piece);
                 return;
             }
 
@@ -101,7 +99,7 @@ namespace Core
         {
             base.Dispose();
             currentPiece.Dispose();
-            Debug.Log("Board - Board Disposed - " + this);
+            Debug.Log("Board - Overflow - " + this);
         }
 
         public void PushPiece(bool push)

@@ -13,9 +13,6 @@ namespace Config
         public AnimatorController animator;
         public ETokenType Type => type;
 
-        public IComboStrategy GetComboStrategy()
-        {
-            return type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
-        }
+        public IComboStrategy ComboStrategy => type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
     }
 }

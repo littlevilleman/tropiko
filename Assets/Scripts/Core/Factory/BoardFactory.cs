@@ -6,25 +6,23 @@ namespace Core
     public interface IBoardFactory
     {
         public event BuildBoard OnBuildBoard;
-        public IPieceFactory pieceFactory { get; }
-        public IBoard Build();
+        public IPieceFactory PieceFactory { get; }
+        public IBoard Build(Vector2Int size);
     }
     public class BoardFactory : IBoardFactory
     {
         public event BuildBoard OnBuildBoard;
 
-        public IPieceFactory pieceFactory { get; private set; }
-
-        private Vector2Int boardSizeSetup = new Vector2Int(6, 13);
+        public IPieceFactory PieceFactory { get; private set; }
 
         public BoardFactory(IPieceFactory pieceFactorySetup)
         {
-            pieceFactory = pieceFactorySetup;
+            PieceFactory = pieceFactorySetup;
         }
 
-        public IBoard Build()
+        public IBoard Build(Vector2Int size)
         {
-            IBoard board = new Board(boardSizeSetup, pieceFactory);
+            IBoard board = new Board(size, PieceFactory);
             OnBuildBoard?.Invoke(board);
             return board;
         }

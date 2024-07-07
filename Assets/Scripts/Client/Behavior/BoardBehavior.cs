@@ -10,41 +10,31 @@ namespace Client
     {
         [SerializeField] private PiecePreviewBehavior nextPieceBhv;
         [SerializeField] private PieceBehavior currentPieceBhv;
-        [SerializeField] private SpriteRenderer boardBorder;
+
+        [SerializeField] private SpriteRenderer background;
+        [SerializeField] private SpriteRenderer boardBorder01;
+        [SerializeField] private SpriteRenderer boardBorder02;
+        [SerializeField] private SpriteRenderer boardBorder03;
         [SerializeField] private SpriteRenderer grid;
 
         public IBoard Board { get; private set; }
 
         public event RecyclePoolable<BoardBehavior> onRecycle;
-        //private PiecePool piecePool;
 
-        public void Setup(IBoard boardSetup/*, PiecePool piecePoolSetup*/)
+        public void Setup(IBoard boardSetup)
         {
-            //piecePool = piecePoolSetup;
             Board = boardSetup;
             Board.OnOverflow += OnOverflow;
             Board.OnTakePiece += OnTakePiece;
             Board.ComboDispatcher.OnDispatch += OnDispatchCombo;
 
+            grid.size = background.size = Board.Size;
+            boardBorder01.size = boardBorder02.size = boardBorder03.size = Board.Size + Vector2Int.one * 2;
+            nextPieceBhv.transform.localPosition = new Vector3(Board.Size.x + 2f, Board.Size.y - 2, 0);
+
             grid.DOColor(AnimationUtils.GetFadeColor(grid.color, .75f), 2f).SetLoops(-1, LoopType.Yoyo);
 
             gameObject.SetActive(true);
-        }
-
-        private void OnDispatchCombo(List<IToken> token, int comboIndex)
-        {
-            GameManager.Instance.Audio.PlaySound(ESound.Combo_01 + Mathf.Clamp(comboIndex, 0, 3));
-            GameManager.Instance.Camera.Shake();
-            Color color = GameManager.Instance.Config.GetTokenConfig(token[0].Type).color;
-            boardBorder.DOColor(color, .125f).SetLoops(2, LoopType.Yoyo);
-
-        }
-
-        private void OnTakePiece(IPiece piece, IToken[,] nextPiece)
-        {
-            GameManager.Instance.Audio.PlaySound(ESound.GeneratePiece);
-            currentPieceBhv.Setup(piece);
-            nextPieceBhv.Setup(nextPiece);
         }
 
         private void Update()
@@ -62,6 +52,21 @@ namespace Client
                 Board.MovePiece(false);
 
             Board.PushPiece(Input.GetKey(KeyCode.S));
+        }
+
+        private void OnDispatchCombo(List<IToken> token, int comboIndex)
+        {
+            GameManager.Instance.Audio.PlaySound(ESound.Combo_01 + Mathf.Clamp(comboIndex, 0, 3));
+            GameManager.Instance.Camera.Shake();
+            Color color = GameManager.Instance.Config.GetTokenConfig(token[0].Type).color;
+            boardBorder01.DOColor(color, .125f).SetLoops(2, LoopType.Yoyo);
+        }
+
+        private void OnTakePiece(IPiece piece, IToken[,] nextPiece)
+        {
+            GameManager.Instance.Audio.PlaySound(ESound.GeneratePiece);
+            currentPieceBhv.Setup(piece);
+            nextPieceBhv.Setup(nextPiece);
         }
 
         private void Rotate(bool left)

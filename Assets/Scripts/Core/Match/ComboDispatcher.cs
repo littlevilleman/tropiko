@@ -1,19 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 using static Core.Events;
 
 namespace Core
 {
-    public static class MapUtils
-    {
-        private static Vector2Int[] Horizontal = { Vector2Int.right, Vector2Int.left };
-        private static Vector2Int[] Vertical = { Vector2Int.up, Vector2Int.down };
-        private static Vector2Int[] LeftDiagonal = { new Vector2Int(-1, 1), new Vector2Int(1, -1) };
-        private static Vector2Int[] RightDiagonal = { new Vector2Int(1, 1), new Vector2Int(-1, -1) };
-        public static List<Vector2Int[]> Directions => new List<Vector2Int[]> { Horizontal, Vertical, LeftDiagonal, RightDiagonal };
-    }
-
     public interface IComboDispatcher
     {
         public event DispatchCombo OnDispatch;
@@ -27,8 +17,9 @@ namespace Core
 
         private List<IToken> candidates = new List<IToken>();
 
-        private bool IsDispatching;
         private int comboIndex = 0;
+
+        private IToken currentCandidate;
 
         public void AddCandidate(IToken token)
         {
@@ -37,14 +28,18 @@ namespace Core
 
         public bool TryDispatch(IBoard board)
         {
-            if(candidates.Count > 0 && !IsDispatching)
+            if (currentCandidate != null)
+                return true;
+
+            if(candidates.Count > 0)
             {
-                IsDispatching = true;
-                Dispatch(board, candidates[0]);
+                currentCandidate = candidates[0];
+                Dispatch(board, currentCandidate);
+                return true;
             }
 
             comboIndex = 0;
-            return IsDispatching;
+            return false;
         }
 
         private async void Dispatch(IBoard board, IToken candidate)
@@ -56,11 +51,11 @@ namespace Core
                 OnDispatch?.Invoke(comboResult.tokens, comboIndex);
                 comboIndex++;
 
-                await Task.Delay(250 * (comboIndex + 1));
+                await Task.Delay(250);
             }
 
             candidates.RemoveAll(x => comboResult.tokens.Contains(x));
-            IsDispatching = false;
+            currentCandidate = null;
         }
     }
 }

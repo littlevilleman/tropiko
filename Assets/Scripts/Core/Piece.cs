@@ -10,7 +10,7 @@ namespace Core
         public event LocatePiece OnLocate;
         public event DisposePiece OnDispose;
         public float CollisionTime { get; }
-        public void Update(IBoard board, float time, float speed = 1f);
+        public void Update(IBoard board, float time, float speed = 1f, float collisionTime = .5f);
     }
 
     public enum EPieceState
@@ -33,7 +33,7 @@ namespace Core
             Tokens = tokensSetup;
         }
 
-        public override void Update(IBoard board, float time, float speed = 1f)
+        public override void Update(IBoard board, float time, float speed = 1f, float collisionTime = .5f)
         {
             if (State == EPieceState.Located)
                 return;
@@ -42,14 +42,14 @@ namespace Core
                 return;
 
             Speed = speed;
-            CollisionTime = .5f;
+            CollisionTime = collisionTime;
             State = EPieceState.Control;
             base.Update(board, time, IsPush ? 20F : Speed);
         }
 
         private bool Collide(IBoard board)
         {
-            if (IsColisionLocation(board, Location + Vector2Int.down))
+            if (MapUtils.IsColisionLocation(board, Location + Vector2Int.down))
             {
                 if (State == EPieceState.Control)
                     OnCollide?.Invoke(this);

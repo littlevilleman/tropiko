@@ -18,7 +18,7 @@ namespace Core.Map
 
         public void Push(bool push) { IsPush = push; }
 
-        public virtual void Update(IBoard board, float time, float speed)
+        public virtual void Update(IBoard board, float time, float speed, float collisionTime = .5f)
         {
             Vector2 position = Position + time * speed * Vector2.down;
 
@@ -53,7 +53,7 @@ namespace Core.Map
 
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)
-                    if (IsColisionLocation(board, position + y * Vector2Int.up + direction))
+                    if (MapUtils.IsColisionLocation(board, position + y * Vector2Int.up + direction))
                         return;
 
             for (int x = 0; x < Size.x; x++)

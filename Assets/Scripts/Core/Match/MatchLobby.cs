@@ -3,39 +3,23 @@ using System.Collections.Generic;
 
 namespace Core
 {
-    public interface IMatchLobby : IMatchFactory<IMultiplayerMatch>
+    public interface IMatchLobby
     {
         public List<PlayerProfile> PlayerProfiles { get; }
         public void AddPlayer(PlayerProfile profile);
         public void RemovePlayer(PlayerProfile profile);
+        public IMatch Build<T>(IMatchBuilder builder, IMatchConfig<T> config) where T : IMatchMode;
     }
 
     public class MatchLobby : IMatchLobby
     {
-        public List<PlayerProfile> PlayerProfiles { get; private set; } = new List<PlayerProfile>(4);
-
-        private IPlayerFactory playerFactory;
-        private IBoardFactory boardFactory;
-        private ITokenFactory tokenFactory;
-
-        public MatchLobby(IMatchBuilder matchBuilder)
+        public List<PlayerProfile> PlayerProfiles { get; private set; } = new List<PlayerProfile>(4)
         {
-            tokenFactory = new TokenFactory();
-            boardFactory = new BoardFactory(new PieceFactory(tokenFactory));
-            playerFactory = new PlayerFactory(boardFactory);
-
-            playerFactory.OnBuildPlayer += matchBuilder.OnBuildPlayer;
-            boardFactory.OnBuildBoard += matchBuilder.OnBuildBoard;
-            tokenFactory.OnBuildToken += matchBuilder.OnBuildToken;
-
-            PlayerProfiles = new List<PlayerProfile>
-            {
-                new PlayerProfile() { Name = "Player01" },
-                new PlayerProfile() { Name = "Player02" },
-                new PlayerProfile() { Name = "Player03" },
-                //new PlayerProfile() { Name = "Player04" },
-            };
-        }
+            new PlayerProfile() { Name = "Player01" },
+            new PlayerProfile() { Name = "Player02" },
+            new PlayerProfile() { Name = "Player03" },
+            new PlayerProfile() { Name = "Player04" },
+        };
 
         public void AddPlayer(PlayerProfile profile)
         {
@@ -46,15 +30,15 @@ namespace Core
             PlayerProfiles.Remove(profile);
         }
 
-        public IMultiplayerMatch Build(IMatchConfig<IMultiplayerMatch> config)
+        public IMatch Build<T>(IMatchBuilder builder, IMatchConfig<T> config) where T : IMatchMode
         {
-            List<IPlayer> players = new List<IPlayer>();
-            foreach (PlayerProfile playerProfile in PlayerProfiles)
-            {
-                players.Add(playerFactory.Build(playerProfile.Name));
-            }
+            if (config is IMatchConfig<IArcadeMatchMode> arcadeConfig)
+                return new ArcadeMatch(builder, arcadeConfig, PlayerProfiles[0]);
 
-            return new MultiplayerMatch(players.ToArray());
+            if (config is IMatchConfig<IMultiplayerMatchMode> multiplayerConfig)
+                return new MultiplayerMatch(builder, multiplayerConfig, PlayerProfiles);
+
+            return null;
         }
     }
 

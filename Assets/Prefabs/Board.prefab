@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1938543731412416625}
   - component: {fileID: 384281408087515305}
   m_Layer: 0
-  m_Name: Frame-01
+  m_Name: Border-01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 426076783256425927}
   - component: {fileID: 8986595625820097550}
   m_Layer: 0
-  m_Name: Frame-03
+  m_Name: Border-03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 9132366997098738480}
   - component: {fileID: 4021753580398649537}
   m_Layer: 0
-  m_Name: Frame-02
+  m_Name: Border-02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -785,7 +785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5637847377097794898
 Transform:
   m_ObjectHideFlags: 0
@@ -818,7 +818,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextPieceBhv: {fileID: 8783747441061208947}
   currentPieceBhv: {fileID: 5562691347261279178}
-  boardBorder: {fileID: 384281408087515305}
+  background: {fileID: 3846931381861196005}
+  boardBorder01: {fileID: 384281408087515305}
+  boardBorder02: {fileID: 4021753580398649537}
+  boardBorder03: {fileID: 8986595625820097550}
   grid: {fileID: 1152000012961671066}
 --- !u!1 &5925321094716931496
 GameObject:

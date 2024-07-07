@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using static Core.Events;
 
@@ -9,9 +8,8 @@ namespace Core
         public event BuildToken OnBuildToken;
 
         public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position);
-        public IToken Build(IBoard board, IToken tokenSetup);
-        public IToken GetRandomToken(IBoard board, Vector2 position);
-        public IToken GetRandomToken(IMatchConfig<IArcadeMatch> config, int level, Vector2 position);
+        public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position);
+        public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode;
     }
 
     public class TokenFactory : ITokenFactory
@@ -20,34 +18,21 @@ namespace Core
 
         public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position)
         {
-            IToken token = new Token(type, position, strategy);
+            IToken token = new Token(type, strategy, position);
             OnBuildToken?.Invoke(token, board);
             return token;
         }
 
-        public IToken Build(IBoard board, IToken tokenSetup)
+        public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position)
         {
             IComboStrategy strategy = tokenSetup.Type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
-            return Build(board, tokenSetup.Type, strategy, tokenSetup.Position);
+            return Build(board, tokenSetup.Type, strategy, position);
         }
 
-        public IToken GetRandomToken(IBoard board, Vector2 position)
-        {
-            return new Token(GetRandomType(), position, new LineComboStrategy());
-        }
-
-        public IToken GetRandomToken(IMatchConfig<IArcadeMatch> config, int level, Vector2 position)
+        public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode
         {
             ITokenConfig tokenConfig = config.GetRandomToken(level);
-            Debug.Log("STRATEGY " + tokenConfig.GetComboStrategy());
-            return new Token(tokenConfig.Type, position, tokenConfig.GetComboStrategy());
-        }
-
-        private ETokenType GetRandomType()
-        {
-            Array values = Enum.GetValues(typeof(ETokenType));
-            System.Random random = new System.Random();
-            return (ETokenType)values.GetValue(random.Next(values.Length));
+            return new Token(tokenConfig.Type, tokenConfig.ComboStrategy, Vector2Int.zero);
         }
     }
 }

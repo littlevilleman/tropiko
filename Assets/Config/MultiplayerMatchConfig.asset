@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: ArcadeMatchConfig
-  m_EditorClassIdentifier: Assembly-CSharp:Config:ArcadeMatchConfig
+  m_Script: {fileID: 11500000, guid: 30027444ec5eb26459841ffae2e339e0, type: 3}
+  m_Name: MultiplayerMatchConfig
+  m_EditorClassIdentifier: 
   levels:
   - tokens:
     - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
@@ -254,52 +254,3 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
     - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
   boardSize: {x: 6, y: 13}
-  levelByScore:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 45.900772
-      outSlope: 45.900772
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.07766916
-    - serializedVersion: 3
-      time: 1
-      value: 30
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  speedByLevel:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.4258566
-      outSlope: 2.4258566
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06479481
-    - serializedVersion: 3
-      time: 1
-      value: 20
-      inSlope: 3.0076687
-      outSlope: 3.0076687
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.04823625
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxScore: 1000000

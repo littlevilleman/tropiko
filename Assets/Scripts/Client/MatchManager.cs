@@ -14,23 +14,16 @@ namespace Client
         [SerializeField] private TokenEffectPool tokenEffectPool;
         [SerializeField] private ScoreWidgetPool scoreWidgetPool;
 
-        private IMatchFactory<IArcadeMatch> matchFactory;
-        private IMatchLobby lobby;
+        private IMatchLobby lobby = new MatchLobby();
         private IMatch match;
 
         public BuildPlayer OnBuildPlayer => BuildPlayer;
         public BuildBoard OnBuildBoard => BuildBoard;
         public BuildToken OnBuildToken => BuildToken;
 
-        private void Start()
+        public void Launch<T>() where T : IMatchMode
         {
-            matchFactory = new ArcadeMatchFactory(this);
-            lobby = new MatchLobby(this);
-        }
-
-        public void Launch(EMatchMode mode)
-        {
-            match = BuildMatch(mode);
+            match = lobby.Build(this, GameManager.Instance.Config.GetMatchConfig<T>());
             match.OnLaunch += OnLaunchMatch;
             match.OnClose += OnCloseMatch;
             match.Launch();
@@ -41,27 +34,19 @@ namespace Client
             match?.Update(Time.deltaTime);
         }
 
-        private IMatch BuildMatch(EMatchMode mode)
-        {
-            if (mode == EMatchMode.Single)
-                return matchFactory.Build(GameManager.Instance.Config.GetMatchConfig());
-
-            return lobby.Build(null);
-        }
-
-        private void OnCloseMatch()
-        {
-            GameManager.Instance.UI.DisplayScreen<HomeScreen>();
-        }
-
         private void OnLaunchMatch(IMatch match)
         {
-            if(match is IArcadeMatch)
+            if(match is IArcadeMatchMode)
                 GameManager.Instance.UI.DisplayScreen<ArcadeMatchScreen>(match, scoreWidgetPool);
             else
                 GameManager.Instance.UI.DisplayScreen<MatchScreen>(match, scoreWidgetPool);
 
             GameManager.Instance.Audio.PlayGameMusic();
+        }
+
+        private void OnCloseMatch()
+        {
+            GameManager.Instance.UI.DisplayScreen<HomeScreen>();
         }
 
         private void BuildPlayer(IPlayer player)
