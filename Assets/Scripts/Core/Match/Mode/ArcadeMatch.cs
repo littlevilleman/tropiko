@@ -10,10 +10,6 @@ namespace Core
 
     public interface IArcadeMatchMode : IMatchMode
     {
-        public event ArcadeMatchLevelUp OnLevelUp;
-        public int CurrentLevel { get; }
-        public float Speed { get; }
-        public float CurrentCollisionTime { get; }
     }
 
     public class ArcadeMatch : Match<IArcadeMatchMode>
@@ -23,6 +19,8 @@ namespace Core
         public float CurrentSpeed => Config.GetLevelSpeed(CurrentLevel);
 
         public float CurrentCollisionTime => .5f;
+        protected float entombCooldown = 10f;
+
         public ArcadeMatch(IMatchBuilder builder, IMatchConfig<IArcadeMatchMode> configSetup, PlayerProfile profile) : base(builder, configSetup)
         {
             Players = new IPlayer[1] { playerFactory.Build(profile.Name, Config.BoardSize) };
@@ -38,6 +36,15 @@ namespace Core
         {
             for (int i = 0; i < Players.Length; i++)
                 Players[i].Board.Update(deltaTime, CurrentSpeed, CurrentLevel, CurrentCollisionTime);
+
+            entombCooldown -= deltaTime;
+            if (entombCooldown <= 0)
+            {
+                for (int i = 0; i < Players.Length; i++)
+                    Players[i].Board.TombDispatcher.AddCandidates(3);
+
+                entombCooldown = 10f;
+            }
         }
 
         protected override void OnReceiveScore(IPlayer player, long score)

@@ -10,9 +10,12 @@ namespace Config
         public string Name;
         public ETokenType type;
         public Color color;
+        public Color borderColor;
         public AnimatorController animator;
         public ETokenType Type => type;
 
-        public IComboStrategy ComboStrategy => type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
+        public IComboStrategy Combo => type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
+        public IBreakStrategy Break => type == ETokenType.TOMB ? new CountBreakStrategy(1) : new BasicBreakStrategy();
+        public IFallStrategy Fall => new BasicFallStrategy();
     }
 }

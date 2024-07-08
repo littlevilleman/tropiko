@@ -14,9 +14,9 @@ public class CameraManager : MonoBehaviour
     {
         postProcess.sharedProfile.TryGet(out aberration);
     }
-    public void Shake()
+    public void Shake(int strenght)
     {
-        cam.DOShakePosition(.25f, .5f, 20);
+        cam.DOShakePosition(.25f, .5f * strenght, 20);
         float abInt = 0f;// aberration.intensity.value;
         //aberration.intensity = new ClampedFloatParameter();
 

@@ -77,13 +77,13 @@ namespace Core
                 Players[i].Board.Update(deltaTime, 1f);
         }
 
+        public void Pause(bool pause = true)
+        {
+        }
+
         public void Quit()
         {
             OnClose?.Invoke();
-        }
-
-        public void Pause(bool pause = true)
-        {
         }
     }
 }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 namespace Client
@@ -9,11 +10,14 @@ namespace Client
         private const float PIECE_STANDBY_TIME = .5F;
         private const float PIECE_LOCATE_TIME = .25F;
 
+        private const float TOKEN_SPAWN_TIME = .25F;
+
         private static Vector3 PIECE_SPAWN_SCALE = new Vector3(.75f, 2f, 1f);
         private static Color PIECE_HIGHLIGHT_COLOR = new Color(0.7803922f, 0.7098039f, 0.5960785f, 1f);
 
         private static Vector3 PIECE_PUSH_OFFSET = new Vector3(0f, 2.5f, 0f);
         private static Color PIECE_PUSH_COLOR = new Color(0.1490196f, 0.3333333f, 0.372549f, 1f);
+        private static Color PIECE_BACKGROUND_COLOR = new Color(0.1490196f, 0.3333333f, 0.372549f, 1f);
 
         public static Color GetFadeColor(Color color, float fade)
         {
@@ -40,11 +44,12 @@ namespace Client
                 .OnUpdate(onUpdate).Play();
         }
 
-        public static Sequence GetPieceLocateSequence(SpriteRenderer pieceBorder)
+        public static Sequence GetPieceLocateSequence(SpriteRenderer pieceBorder, TweenCallback onComplete)
         {
             return DOTween.Sequence()
                 .Append(pieceBorder.DOColor(Color.white, PIECE_LOCATE_TIME / 2f))
                 .Append(pieceBorder.DOColor(GetFadeColor(PIECE_HIGHLIGHT_COLOR, 0f), PIECE_LOCATE_TIME / 2f))
+                .OnComplete(onComplete)
                 .Play();
         }
 
@@ -60,6 +65,20 @@ namespace Client
             return DOTween.Sequence().Pause()
             .Append(transform.DOLocalMove(Vector2.zero, .25f)).SetEase(Ease.InSine)
             .Append(fader.DOColor(GetFadeColor(PIECE_PUSH_COLOR, .5f), .25f).SetEase(Ease.InCubic).OnComplete(onComplete));
+        }
+
+        public static Sequence GetTokenSpawnSequence(SpriteRenderer tokenRenderer, SpriteRenderer borderRenderer, Color color, Color borderColor)
+        {
+            tokenRenderer.color = GetFadeColor(color, 0f);
+            borderRenderer.color = GetFadeColor(borderColor, 0f);
+            tokenRenderer.transform.localScale = Vector3.zero;
+
+
+            return DOTween.Sequence()
+                .Insert(0, borderRenderer.DOColor(borderColor, TOKEN_SPAWN_TIME).SetEase(Ease.OutSine))
+                .Insert(0, tokenRenderer.DOColor(color, TOKEN_SPAWN_TIME).SetEase(Ease.OutSine))
+                .Insert(0, tokenRenderer.transform.DOScale(1f, TOKEN_SPAWN_TIME).SetEase(Ease.OutSine))
+                .Play();
         }
     }
 }

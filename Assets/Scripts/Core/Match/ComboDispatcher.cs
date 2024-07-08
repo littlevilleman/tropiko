@@ -1,19 +1,15 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using static Core.Events;
 
 namespace Core
 {
     public interface IComboDispatcher
     {
-        public event DispatchCombo OnDispatch;
         public void AddCandidate(IToken token);
         public bool TryDispatch(IBoard board);
     }
 
     public class ComboDispatcher : IComboDispatcher
     {
-        public event DispatchCombo OnDispatch;
 
         private List<IToken> candidates = new List<IToken>();
 
@@ -44,14 +40,12 @@ namespace Core
 
         private async void Dispatch(IBoard board, IToken candidate)
         {
-            ComboResultContext comboResult = candidate.Perform(board);
+            ComboResultContext comboResult = candidate.GetCombo(board);
 
             if (comboResult.result == EComboResult.SUCCESS)
             {
-                OnDispatch?.Invoke(comboResult.tokens, comboIndex);
+                await board.DispatchCombo(comboResult.tokens, comboIndex + 1);
                 comboIndex++;
-
-                await Task.Delay(250);
             }
 
             candidates.RemoveAll(x => comboResult.tokens.Contains(x));

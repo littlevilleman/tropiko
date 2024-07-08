@@ -25,8 +25,8 @@ namespace Client
         {
             Board = boardSetup;
             Board.OnOverflow += OnOverflow;
-            Board.OnTakePiece += OnTakePiece;
-            Board.ComboDispatcher.OnDispatch += OnDispatchCombo;
+            Board.PieceHandler.OnTakePiece += OnTakePiece;
+            Board.OnDispatchCombo += OnDispatchCombo;
 
             grid.size = background.size = Board.Size;
             boardBorder01.size = boardBorder02.size = boardBorder03.size = Board.Size + Vector2Int.one * 2;
@@ -46,18 +46,18 @@ namespace Client
                 Rotate(true);
 
             if (Input.GetKeyDown(KeyCode.A))
-                Board.MovePiece(true);
+                Board.PieceHandler.MovePiece(Board, true);
 
             if (Input.GetKeyDown(KeyCode.D))
-                Board.MovePiece(false);
+                Board.PieceHandler.MovePiece(Board, false);
 
-            Board.PushPiece(Input.GetKey(KeyCode.S));
+            Board.PieceHandler.PushPiece(Input.GetKey(KeyCode.S));
         }
 
         private void OnDispatchCombo(List<IToken> token, int comboIndex)
         {
             GameManager.Instance.Audio.PlaySound(ESound.Combo_01 + Mathf.Clamp(comboIndex, 0, 3));
-            GameManager.Instance.Camera.Shake();
+            GameManager.Instance.Camera.Shake(comboIndex);
             Color color = GameManager.Instance.Config.GetTokenConfig(token[0].Type).color;
             boardBorder01.DOColor(color, .125f).SetLoops(2, LoopType.Yoyo);
         }
@@ -71,15 +71,15 @@ namespace Client
 
         private void Rotate(bool left)
         {
-            Board.RotatePiece(left);
+            Board.PieceHandler.RotatePiece(Board, left);
             GameManager.Instance.Audio.PlaySound(ESound.RotatePiece);
         }
 
         private void OnOverflow()
         {
             Board.OnOverflow -= OnOverflow;
-            Board.OnTakePiece -= OnTakePiece;
-            Board.ComboDispatcher.OnDispatch -= OnDispatchCombo;
+            Board.PieceHandler.OnTakePiece -= OnTakePiece;
+            Board.OnDispatchCombo -= OnDispatchCombo;
             Board = null;
             onRecycle?.Invoke(this);
         }

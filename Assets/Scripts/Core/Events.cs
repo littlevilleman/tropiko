@@ -1,3 +1,4 @@
+using Core.Map;
 using System.Collections.Generic;
 
 namespace Core
@@ -20,8 +21,10 @@ namespace Core
         public delegate void TakePiece(IPiece piece, IToken[,] nextPiece);
         public delegate void CollidePiece(IPiece piece);
         public delegate void LocatePiece(IPiece piece);
-        public delegate void LocateToken(IToken token, bool fallen = false);
-        public delegate void BreakToken(IToken token);
+        public delegate void LocateToken(IToken token);
+        public delegate void FallToken(IToken token);
+        public delegate void BreakToken(IToken token, int remaining = 0);
+        public delegate void EntombToken(IBoardMap board, IToken token, int count);
         public delegate void DispatchCombo(List<IToken> token, int index);
         public delegate void OverflowBoard();
 

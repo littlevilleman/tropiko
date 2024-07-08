@@ -9,6 +9,7 @@ namespace Core
         public event CollidePiece OnCollide;
         public event LocatePiece OnLocate;
         public event DisposePiece OnDispose;
+
         public float CollisionTime { get; }
         public void Update(IBoard board, float time, float speed = 1f, float collisionTime = .5f);
     }
@@ -24,7 +25,6 @@ namespace Core
         public event LocatePiece OnLocate;
         public event DisposePiece OnDispose;
         public float CollisionTime { get; private set; } = .5f;
-        private float Speed = 1f;
         private EPieceState State = EPieceState.Control;
 
         public Piece(IToken[,] tokensSetup)
@@ -38,16 +38,19 @@ namespace Core
             if (State == EPieceState.Located)
                 return;
 
-            if (Collide(board))
+            if (TryCollide(board))
+            {
+                CollisionTime -= Time.deltaTime;
+                State = EPieceState.Collide;
                 return;
+            }
 
-            Speed = speed;
             CollisionTime = collisionTime;
             State = EPieceState.Control;
-            base.Update(board, time, IsPush ? 20F : Speed);
+            base.Update(board, time, IsPush ? 20F : speed);
         }
 
-        private bool Collide(IBoard board)
+        private bool TryCollide(IBoard board)
         {
             if (MapUtils.IsColisionLocation(board, Location + Vector2Int.down))
             {
@@ -55,10 +58,7 @@ namespace Core
                     OnCollide?.Invoke(this);
 
                 if (CollisionTime <= 0f)
-                    board.LocatePiece(this);
-
-                CollisionTime -= Time.deltaTime;
-                State = EPieceState.Collide;
+                    board.TryLocatePiece(this);
 
                 return true;
             }
@@ -66,12 +66,11 @@ namespace Core
             return false;
         }
 
-        public override void Locate(IBoardMap board, bool falling = false)
+        public override void Locate(IBoardMap board)
         {
-            base.Locate(board, falling);
+            base.Locate(board);
             State = EPieceState.Located;
             OnLocate?.Invoke(this);
-            Debug.Log("Piece - Locate - " + this);
         }
 
         public override void Move(IBoardMap board, bool left = false)
@@ -80,7 +79,6 @@ namespace Core
                 return;
 
             base.Move(board, left);
-            Debug.Log("Piece - Move - " + this);
         }
 
         public override void Rotate(IBoardMap board, bool left = false)
@@ -89,7 +87,6 @@ namespace Core
                 return;
             
             base.Rotate(board, left);
-            Debug.Log("Piece - Rotate - " + this);
         }
 
         public override void Dispose()

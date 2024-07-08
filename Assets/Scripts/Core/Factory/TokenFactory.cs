@@ -7,7 +7,6 @@ namespace Core
     {
         public event BuildToken OnBuildToken;
 
-        public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position);
         public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position);
         public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode;
     }
@@ -16,23 +15,26 @@ namespace Core
     {
         public event BuildToken OnBuildToken;
 
-        public IToken Build(IBoard board, ETokenType type, IComboStrategy strategy, Vector2 position)
+        public IToken Build(IBoard board, ETokenType type, IComboStrategy comboSetup, IBreakStrategy breakSetup, IFallStrategy fallSetup, Vector2 position)
         {
-            IToken token = new Token(type, strategy, position);
+            IToken token = new Token(type, comboSetup, breakSetup, fallSetup);
+            token.SetPosition(board, position, false);
             OnBuildToken?.Invoke(token, board);
             return token;
         }
 
         public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position)
         {
-            IComboStrategy strategy = tokenSetup.Type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
-            return Build(board, tokenSetup.Type, strategy, position);
+            IComboStrategy combo = tokenSetup.Type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();
+            IBreakStrategy breaks = tokenSetup.Type == ETokenType.TOMB ? new CountBreakStrategy(1) : new BasicBreakStrategy();
+            IFallStrategy fall = new BasicFallStrategy();
+            return Build(board, tokenSetup.Type, combo, breaks, fall, position);
         }
 
         public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode
         {
             ITokenConfig tokenConfig = config.GetRandomToken(level);
-            return new Token(tokenConfig.Type, tokenConfig.ComboStrategy, Vector2Int.zero);
+            return new Token(tokenConfig.Type, tokenConfig.Combo, tokenConfig.Break, tokenConfig.Fall);
         }
     }
 }

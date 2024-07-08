@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Bomb
   type: 6
   color: {r: 1, g: 1, b: 1, a: 1}
+  borderColor: {r: 0.78039217, g: 0.70980394, b: 0.59607846, a: 0}
   animator: {fileID: 9100000, guid: 92aa5eae2edff4e4cba3054584cdebee, type: 2}

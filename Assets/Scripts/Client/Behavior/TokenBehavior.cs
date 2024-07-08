@@ -1,5 +1,6 @@
 using Config;
 using Core;
+using Core.Map;
 using DG.Tweening;
 using UnityEngine;
 using static Client.Events;
@@ -11,12 +12,14 @@ namespace Client
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer tokenRenderer;
         [SerializeField] private SpriteRenderer backgroundRenderer;
+        [SerializeField] private SpriteRenderer borderRenderer;
 
         public event RecyclePoolable<TokenBehavior> onRecycle;
 
         private IToken token;
         private Tween movementTween;
         private TokenEffectPool breakEffectPool;
+        private Sequence spawnSequence;
 
         public void Setup(IToken tokenSetup)
         {
@@ -24,7 +27,6 @@ namespace Client
             animator.runtimeAnimatorController = config.animator;
             tokenRenderer.color = config.color;
 
-            //transform.position = location;
             gameObject.SetActive(true);
         }
 
@@ -32,14 +34,18 @@ namespace Client
         {
             token = tokenSetup;
             token.OnLocate += OnLocate;
+            token.OnFall += OnFall;
             token.OnBreak += OnBreak;
+            token.OnEntomb += OnEntomb;
             token.OnDispose += OnDispose;
 
             breakEffectPool = breakEffectPoolSetup;
 
+
             TokenConfig config = GameManager.Instance.Config.GetTokenConfig(token.Type);
             animator.runtimeAnimatorController = config.animator;
-            tokenRenderer.color = config.color;
+
+            spawnSequence = AnimationUtils.GetTokenSpawnSequence(tokenRenderer, borderRenderer, config.color, config.borderColor).Play();
 
             gameObject.SetActive(true);
         }
@@ -53,21 +59,39 @@ namespace Client
                 transform.localPosition = token.Position;
         }
 
-        private void OnLocate(IToken token, bool falling = false)
+        private void OnFall(IToken token)
         {
-            if (falling)
-                movementTween = transform.DOLocalMoveY(token.Location.y, .25f).OnComplete(OnPushComplete);
+            movementTween = transform.DOLocalMoveY(token.Location.y, .25f).OnComplete(OnPushComplete);
+        }
 
+
+        private void OnLocate(IToken token)
+        {
+            transform.localPosition = token.Position;
             animator.SetTrigger("Locate");
         }
 
-        private void OnBreak(IToken token)
+        private void OnBreak(IToken t, int remaining = 0)
         {
-            Color tokenColor = tokenRenderer.color;
-            Color bgColor = backgroundRenderer.color;
+            if (remaining > 0)
+            {
+                tokenRenderer.DOColor(Color.white, .125f).SetLoops(2, LoopType.Yoyo).OnComplete(() => OnTombBreakComplete(remaining));
+                GameManager.Instance.Audio.PlaySound(ESound.BreakTomb);
+                return;
+            }
+
+            borderRenderer.color = GameManager.Instance.Config.GetTokenConfig(token.Type).borderColor;
             tokenRenderer.DOColor(Color.white, .125f).SetLoops(2, LoopType.Yoyo).OnComplete(OnBreakComplete);
-            //backgroundRenderer.DOColor(Color.white, .125f).SetLoops(2, LoopType.Yoyo); 
-            //transform.DOScale(1.125F, .120f).SetLoops(2, LoopType.Yoyo);
+        }
+
+        private void OnEntomb(IBoardMap board, IToken token, int count)
+        {
+            TokenConfig config = GameManager.Instance.Config.GetTokenConfig(token.Type);
+            animator.runtimeAnimatorController = config.animator;
+            animator.SetInteger("Count", count);
+
+            GameManager.Instance.Audio.PlaySound(ESound.GenerateTomb);
+            spawnSequence = AnimationUtils.GetTokenSpawnSequence(tokenRenderer, borderRenderer, config.color, config.borderColor);
         }
 
         private void OnPushComplete()
@@ -85,6 +109,21 @@ namespace Client
             animator.SetTrigger("Break");
             OnDispose();
         }
+
+        private void OnTombBreakComplete(int remaining)
+        {
+            TokenEffectBehavior effect = breakEffectPool.Pull(null);
+            effect.onRecycle += breakEffectPool.Recycle;
+            effect.PlayBreak(transform.position, tokenRenderer.color);
+
+            TokenConfig config = GameManager.Instance.Config.GetTokenConfig(token.Type);
+            animator.runtimeAnimatorController = config.animator;
+            animator.SetInteger("Count", remaining);
+
+            spawnSequence = AnimationUtils.GetTokenSpawnSequence(tokenRenderer, borderRenderer, config.color, config.borderColor);
+
+        }
+
         private void OnDispose()
         {
             movementTween = null;

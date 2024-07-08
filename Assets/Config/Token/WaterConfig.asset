@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Water
   type: 1
   color: {r: 0.29803923, g: 0.69411767, b: 0.69803923, a: 1}
+  borderColor: {r: 0.78039217, g: 0.70980394, b: 0.59607846, a: 0}
   animator: {fileID: 9100000, guid: 2a994ab8a84b5114ab13e7c12aad6084, type: 2}

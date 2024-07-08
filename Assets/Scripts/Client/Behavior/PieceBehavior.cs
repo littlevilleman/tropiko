@@ -7,7 +7,7 @@ namespace Client
 {
     public class PieceBehavior : MonoBehaviour, IPoolable<PieceBehavior>
     {
-        //[SerializeField] private PiecePushEffect pushEffect;
+        [SerializeField] private SpriteRenderer background;
         [SerializeField] private SpriteRenderer pieceBorder;
         [SerializeField] private Transform spawnFader;
 
@@ -29,6 +29,7 @@ namespace Client
             transform.localPosition = piece.Position;
 
             spawnSequence = AnimationUtils.GetPieceSpawnSequence(pieceBorder, spawnFader, false, OnCompleteSpawnAnimation);
+            background.gameObject.SetActive(true);
 
             gameObject.SetActive(true);
         }
@@ -37,6 +38,9 @@ namespace Client
         {
             if (piece == null)
                 return;
+
+            //if (locateSequence != null)
+            //    return;
 
             transform.localPosition = piece.Position;
             //pushEffect.Play(piece.IsPush);
@@ -52,7 +56,13 @@ namespace Client
             standbySequence.Kill();
             standbySequence = null;
 
-            locateSequence = AnimationUtils.GetPieceLocateSequence(pieceBorder);
+            locateSequence = AnimationUtils.GetPieceLocateSequence(pieceBorder, OnCompleteLocateSequence);
+        }
+
+        private void OnCompleteLocateSequence()
+        {
+            background.gameObject.SetActive(false);
+            locateSequence = null;
         }
 
         private void OnCompleteSpawnAnimation()

@@ -17,9 +17,9 @@ namespace Client
             scoreWidgetPool = scoreWidgetPoolSetup;
             player = playerSetup;
             player.OnReceiveScore += OnReceiveScore;
-            player.Board.ComboDispatcher.OnDispatch += OnDispatchCombo;
+            player.Board.OnDispatchCombo += OnDispatchCombo;
             player.Board.OnOverflow += OnOverflow;
-            player.Board.OnTakePiece += OnTakePiece;
+            player.Board.PieceHandler.OnTakePiece += OnTakePiece;
 
             gameObject.SetActive(true);
         }
@@ -51,9 +51,9 @@ namespace Client
                 return;
 
             player.OnReceiveScore -= OnReceiveScore;
-            player.Board.ComboDispatcher.OnDispatch -= OnDispatchCombo;
+            player.Board.OnDispatchCombo -= OnDispatchCombo;
             player.Board.OnOverflow -= OnOverflow;
-            player.Board.OnTakePiece -= OnTakePiece;
+            player.Board.PieceHandler.OnTakePiece -= OnTakePiece;
         }
     }
 }

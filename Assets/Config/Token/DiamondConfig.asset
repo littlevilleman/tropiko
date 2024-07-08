@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Diamond
   type: 4
   color: {r: 0.77647066, g: 0.2627451, b: 0.2392157, a: 1}
+  borderColor: {r: 0.78039217, g: 0.70980394, b: 0.59607846, a: 0}
   animator: {fileID: 9100000, guid: f92778be4c39e0642b4da8dc07d31b1b, type: 2}

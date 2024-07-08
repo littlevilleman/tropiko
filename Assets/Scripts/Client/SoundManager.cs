@@ -5,7 +5,7 @@ namespace Client
 {
     public enum ESound
     {
-        Locate, Combo_01, Combo_02, Combo_03, Combo_04, Defeat, GeneratePiece, RotatePiece
+        Locate, Combo_01, Combo_02, Combo_03, Combo_04, Defeat, GeneratePiece, RotatePiece, GenerateTomb, BreakTomb
     }
 
     public class SoundManager : MonoBehaviour

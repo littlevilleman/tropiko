@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SkullConfig
   m_EditorClassIdentifier: 
   Name: Skull
-  Type: 0
+  type: 0
   color: {r: 0.7803922, g: 0.70980394, b: 0.59607846, a: 1}
+  borderColor: {r: 0.78039217, g: 0.70980394, b: 0.59607846, a: 0}
   animator: {fileID: 9100000, guid: fa367e8d91de0fd48b18b7a1f852d76c, type: 2}

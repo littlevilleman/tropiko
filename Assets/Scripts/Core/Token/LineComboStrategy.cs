@@ -30,10 +30,20 @@ namespace Core
             {
                 List<IToken> neighbours = new List<IToken>();
                 foreach (Vector2Int direction in axis)
-                    neighbours.AddRange(GetLineNeighbours(board, token, direction));
+                    neighbours.AddRange(GetTokensLine(board, token, direction));
 
                 if (neighbours.Count >= 2)
                     comboTokens.AddRange(neighbours);
+            }
+
+            if(comboTokens.Count > 1)
+            {
+                foreach (IToken comboToken in comboTokens)
+                    comboToken.Break(board);
+
+                foreach (IToken comboToken in comboTokens)
+                    foreach (IToken tombToken in MapUtils.GetTokenNeighbours(board, comboToken.Location, ETokenType.TOMB))
+                        tombToken.Break(board);
             }
 
             return new ComboResultContext()
@@ -43,7 +53,7 @@ namespace Core
             };
         }
 
-        private static List<IToken> GetLineNeighbours(ITokenMap board, IToken source, Vector2Int direction)
+        private List<IToken> GetTokensLine(ITokenMap board, IToken source, Vector2Int direction)
         {
             List<IToken> lineNeighbours = new List<IToken>();
             Vector2Int location = source.Location + direction;

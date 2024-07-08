@@ -24,7 +24,7 @@ namespace Core.Map
 
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)
-                    Tokens[x, y].Update(board, position + y * Vector2.up);
+                    Tokens[x, y].SetPosition(board, position + y * Vector2.up);
         }
 
         public virtual void Rotate(IBoardMap board, bool left)
@@ -39,7 +39,7 @@ namespace Core.Map
                     int index = left ? y - 1 : y + 1;
                     index = index < 0 ? index + Size.y : index >= Size.y ? index - Size.y : index;
                     tokens[0, y] = Tokens[0, index];
-                    tokens[0, y]?.Update(board as IBoard, position + y * Vector2Int.up);
+                    tokens[0, y]?.SetPosition(board, position + y * Vector2Int.up);
                 }
             }
 
@@ -58,14 +58,14 @@ namespace Core.Map
 
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)
-                    Tokens[x, y]?.Update(board, Tokens[x, y].Position + direction);
+                    Tokens[x, y]?.SetPosition(board, Tokens[x, y].Position + direction);
         }
 
-        public virtual void Locate(IBoardMap board, bool falling = false)
+        public virtual void Locate(IBoardMap board)
         {
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)
-                    Tokens[x, y]?.Locate(board, falling);
+                    Tokens[x, y]?.Locate(board);
 
             IsPush = false;
         }

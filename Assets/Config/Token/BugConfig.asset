@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Bug
   type: 3
   color: {r: 0.5254902, g: 0.22352943, b: 0.86274517, a: 1}
+  borderColor: {r: 0.78039217, g: 0.70980394, b: 0.59607846, a: 0}
   animator: {fileID: 9100000, guid: 0a40731caf4c2674fbfb2e1d060eda9b, type: 2}

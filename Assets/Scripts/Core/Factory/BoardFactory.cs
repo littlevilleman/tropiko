@@ -22,7 +22,7 @@ namespace Core
 
         public IBoard Build(Vector2Int size)
         {
-            IBoard board = new Board(size, PieceFactory);
+            IBoard board = new Board(size, new PieceHandler(PieceFactory));
             OnBuildBoard?.Invoke(board);
             return board;
         }

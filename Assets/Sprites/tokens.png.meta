@@ -697,6 +697,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tokens_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 15
+        height: 15
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f99601bc7c8e4746a1a4082e6d8cfb9
+      internalID: -1237346047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tokens_29
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 15
+        width: 15
+        height: 15
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e252e507361ce64458d4783c73e6c75e
+      internalID: -1644423405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tokens_30
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 15
+        width: 15
+        height: 15
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3b96c7baa39a14ab4b5252355f490a
+      internalID: 2133443301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tokens_31
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 1
+        width: 15
+        height: 15
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 109cdc17d99700c489535fb3c05ab35b
+      internalID: -781164380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -729,7 +813,11 @@ TextureImporter:
       tokens_25: 288001495
       tokens_26: 1712778198
       tokens_27: 1927458317
+      tokens_28: -1237346047
+      tokens_29: -1644423405
       tokens_3: -985890268
+      tokens_30: 2133443301
+      tokens_31: -781164380
       tokens_4: 756842193
       tokens_5: 2026426836
       tokens_6: 936365488

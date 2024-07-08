@@ -30,7 +30,7 @@ namespace Core
             Name = name;
 
             board.OnOverflow += OnBoardOverflow;
-            board.ComboDispatcher.OnDispatch += OnComboDispatch;
+            board.OnDispatchCombo += OnComboDispatch;
         }
 
         private void OnComboDispatch(List<IToken> token, int comboIndex)
@@ -41,7 +41,7 @@ namespace Core
         private void OnBoardOverflow()
         {
             Board.OnOverflow -= OnBoardOverflow;
-            Board.ComboDispatcher.OnDispatch -= OnComboDispatch;
+            Board.OnDispatchCombo -= OnComboDispatch;
             IsDefeat = true;
             OnDefeat?.Invoke(this);
         }

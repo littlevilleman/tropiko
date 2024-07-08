@@ -8,6 +8,20 @@ namespace Core
     {
         public ComboResultContext Perform(IToken token, IBoardMap board)
         {
+            List<IToken> comboTokens = GetComboTokens(token, board);
+
+            foreach (IToken comboToken in comboTokens)
+                comboToken.Break(board);
+
+            return new ComboResultContext
+            {
+                result = EComboResult.SUCCESS,
+                tokens = comboTokens
+            };
+        }
+
+        private List<IToken> GetComboTokens(IToken token, IBoardMap board)
+        {
             List<IToken> comboTokens = new List<IToken>() { token };
 
             board.GetToken(token.Location.x, token.Location.y - 1, out IToken targetToken);
@@ -19,11 +33,7 @@ namespace Core
                 comboTokens.AddRange(typeTokens);
             }
 
-            return new ComboResultContext
-            {
-                result = EComboResult.SUCCESS,
-                tokens = comboTokens
-            };
+            return comboTokens;
         }
 
         private List<IToken> TakeTypeTokens(IBoardMap board, IToken targetToken)
