@@ -6,20 +6,14 @@ namespace Core
     public interface IPlayerFactory
     {
         public event BuildPlayer OnBuildPlayer;
-        public IPlayer Build(string name, Vector2Int size);
+        public IPlayer Build(string name, Vector2Int size, IBoardFactory boardFactory);
     }
 
     public class PlayerFactory : IPlayerFactory
     {
         public event BuildPlayer OnBuildPlayer;
-        private IBoardFactory boardFactory;
 
-        public PlayerFactory(IBoardFactory boardFactorySetup)
-        {
-            boardFactory = boardFactorySetup;
-        }
-
-        public IPlayer Build(string name, Vector2Int size)
+        public IPlayer Build(string name, Vector2Int size, IBoardFactory boardFactory)
         {
             IPlayer player = new Player(name, boardFactory.Build(size));
             OnBuildPlayer?.Invoke(player);

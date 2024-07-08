@@ -15,12 +15,11 @@ namespace Core.Map
         public Vector2 Position => Tokens[0, 0].Position;
         public Vector2Int Location => Tokens[0, 0].Location;
         public bool IsPush { get; private set; }
-
         public void Push(bool push) { IsPush = push; }
 
-        public virtual void Update(IBoard board, float time, float speed, float collisionTime = .5f)
+        public virtual void Update<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
         {
-            Vector2 position = Position + time * speed * Vector2.down;
+            Vector2 position = Position + context.time * (IsPush ? 20F : context.speed) * Vector2.down;
 
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)

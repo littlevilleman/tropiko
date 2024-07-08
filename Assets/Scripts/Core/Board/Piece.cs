@@ -11,7 +11,7 @@ namespace Core
         public event DisposePiece OnDispose;
 
         public float CollisionTime { get; }
-        public void Update(IBoard board, float time, float speed = 1f, float collisionTime = .5f);
+        public void Update<T>(IBoard board, MatchContext<T> context) where T : IMatchMode;
     }
 
     public enum EPieceState
@@ -32,8 +32,7 @@ namespace Core
             Size = new Vector2Int(1, 3);
             Tokens = tokensSetup;
         }
-
-        public override void Update(IBoard board, float time, float speed = 1f, float collisionTime = .5f)
+        public override void Update<T>(IBoard board, MatchContext<T> context)
         {
             if (State == EPieceState.Located)
                 return;
@@ -45,9 +44,9 @@ namespace Core
                 return;
             }
 
-            CollisionTime = collisionTime;
+            CollisionTime = context.collisionTime;
             State = EPieceState.Control;
-            base.Update(board, time, IsPush ? 20F : speed);
+            base.Update(board, context);
         }
 
         private bool TryCollide(IBoard board)
@@ -94,5 +93,6 @@ namespace Core
             base.Dispose();
             OnDispose?.Invoke();
         }
+
     }
 }

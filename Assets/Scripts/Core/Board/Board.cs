@@ -14,8 +14,22 @@ namespace Core
         public IPieceHandler PieceHandler { get; }
         public ITombDispatcher TombDispatcher { get; }
         public IComboDispatcher ComboDispatcher { get; }
-        public void Update(float time, float speed, int level = 0, float collisionTime = .5f);
+        public void Update<T>(MatchContext<T> context) where T : IMatchMode;
         public Task DispatchCombo(List<IToken> comboStack, int index);
+    }
+
+    public abstract class MatchContext<T> where T : IMatchMode
+    {
+        public IMatchConfig<T> config;
+        public IPieceFactory pieceFactory;
+        public int level = 0;
+        public float time = 0f;
+        public float speed = 1f;
+        public float collisionTime = .5f;
+    }
+
+    public class ArcadeMatchContext : MatchContext<IArcadeMatchMode>
+    {
     }
 
     public class Board : TokenMap, IBoard
@@ -35,18 +49,18 @@ namespace Core
             ComboDispatcher = new ComboDispatcher();
         }
 
-        public void Update(float time, float speed, int level = 0, float collisionTime = .5f)
+        public void Update<T>(MatchContext<T> context) where T : IMatchMode
         {
             if (ComboDispatcher.TryDispatch(this))
                 return;
 
-            if (PieceHandler.TryUpdate(this, time, speed, level, collisionTime))
+            if (PieceHandler.TryUpdate(this, context))
                 return;
 
             if (TombDispatcher.TryDispatch(this))
                 return;
 
-            PieceHandler.SwitchPiece(this, level);
+            PieceHandler.SwitchPiece(this, context);
         }
 
         public void TryLocatePiece(IPiece piece)

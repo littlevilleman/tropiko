@@ -36,7 +36,7 @@ namespace Client
 
         private void OnLaunchMatch(IMatch match)
         {
-            if(match is Match<IArcadeMatchMode>)
+            if(match is IArcadeMatch)
                 GameManager.Instance.UI.DisplayScreen<ArcadeMatchScreen>(match, scoreWidgetPool);
             else
                 GameManager.Instance.UI.DisplayScreen<MatchScreen>(match, scoreWidgetPool);

@@ -6,18 +6,16 @@ namespace Core
     {
         public ITokenFactory TokenFactory { get; }
         public IPiece Build(IBoard board, IToken[,] tokens);
-        public IToken[,] GetPiecePreview(int level);
+        public IToken[,] GetPiecePreview<T>(IMatchConfig<T> config, int level) where T : IMatchMode;
     }
 
-    public class PieceFactory<T> : IPieceFactory where T :IMatchMode
+    public class PieceFactory : IPieceFactory
     {
         public ITokenFactory TokenFactory { get; private set; }
-        private IMatchConfig<T> Config;
 
-        public PieceFactory(ITokenFactory tokenFactorySetup, IMatchConfig<T> configSetup)
+        public PieceFactory(ITokenFactory tokenFactorySetup)
         {
             TokenFactory = tokenFactorySetup;
-            Config = configSetup;
         }
 
         public IPiece Build(IBoard board, IToken[,] tokens)
@@ -31,13 +29,13 @@ namespace Core
             return new Piece(tokens);
         }
 
-        public IToken[,] GetPiecePreview(int level)
+        public IToken[,] GetPiecePreview<T>(IMatchConfig<T> config, int level) where T :IMatchMode
         {
             IToken[,] pieceTokens = new IToken[1, 3];
 
             for (int x = 0; x < 1; x++)
                 for (int y = 0; y < 3; y++)
-                    pieceTokens[x, y] = TokenFactory.GetRandomToken(Config, level);
+                    pieceTokens[x, y] = TokenFactory.GetRandomToken(config, level);
 
             return pieceTokens;
         }

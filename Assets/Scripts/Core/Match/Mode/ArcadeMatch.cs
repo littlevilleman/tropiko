@@ -10,9 +10,18 @@ namespace Core
 
     public interface IArcadeMatchMode : IMatchMode
     {
+
     }
 
-    public class ArcadeMatch : Match<IArcadeMatchMode>
+    public interface IArcadeMatch
+    {
+        public event ArcadeMatchLevelUp OnLevelUp;
+        public int CurrentLevel { get; }
+        public float CurrentSpeed { get; }
+        public float CurrentCollisionTime { get; }
+    }
+
+    public class ArcadeMatch : Match<IArcadeMatchMode>, IArcadeMatch
     {
         public event ArcadeMatchLevelUp OnLevelUp;
         public int CurrentLevel => Config.GetLevel(Players[0].Score);
@@ -23,7 +32,7 @@ namespace Core
 
         public ArcadeMatch(IMatchBuilder builder, IMatchConfig<IArcadeMatchMode> configSetup, PlayerProfile profile) : base(builder, configSetup)
         {
-            Players = new IPlayer[1] { playerFactory.Build(profile.Name, Config.BoardSize) };
+            Players = new IPlayer[1] { playerFactory.Build(profile.Name, Config.BoardSize, boardFactory) };
 
             foreach (IPlayer player in Players)
             {
@@ -35,7 +44,7 @@ namespace Core
         public override void Update(float deltaTime)
         {
             for (int i = 0; i < Players.Length; i++)
-                Players[i].Board.Update(deltaTime, CurrentSpeed, CurrentLevel, CurrentCollisionTime);
+                Players[i].Board.Update(GetContext(deltaTime));
 
             entombCooldown -= deltaTime;
             if (entombCooldown <= 0)
@@ -60,6 +69,19 @@ namespace Core
 
             if (Players.ToList().Where(x => x.IsDefeat == false).Count() == 0)
                 Quit();
+        }
+
+        protected override MatchContext<IArcadeMatchMode> GetContext(float deltaTime)
+        {
+            return new ArcadeMatchContext
+            {
+                pieceFactory = pieceFactory,
+                config = Config,
+                time = deltaTime,
+                collisionTime = CurrentCollisionTime,
+                speed = CurrentSpeed,
+                level = CurrentLevel,
+            };
         }
     }
 }

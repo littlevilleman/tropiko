@@ -7,11 +7,11 @@ namespace Core
     {
         public event TakePiece OnTakePiece;
 
-        public bool TryUpdate(IBoard board, float time, float speed, int level, float collisionTime);
+        public bool TryUpdate<T>(IBoard board, MatchContext<T> context) where T : IMatchMode;
         public void MovePiece(IBoard board, bool left = false);
         public void RotatePiece(IBoard board, bool left = false);
         public void PushPiece(bool push);
-        public void SwitchPiece(IBoard board, int level);
+        public void SwitchPiece<T>(IBoard board, MatchContext<T> context) where T : IMatchMode;
         public void LocatePiece(IBoard board);
         public void Dispose();
     }
@@ -20,21 +20,14 @@ namespace Core
     {
         public event TakePiece OnTakePiece;
 
-        private IPieceFactory pieceFactory;
         private IPiece currentPiece;
         private IToken[,] nextPiecePreview;
 
-        public PieceHandler(IPieceFactory factorySetup)
-        {
-            pieceFactory = factorySetup;
-            nextPiecePreview = pieceFactory.GetPiecePreview(0);
-        }
-
-        public bool TryUpdate(IBoard board, float time, float speed, int level, float collisionTime)
+        public bool TryUpdate<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
         {
             if (currentPiece != null)
             {
-                currentPiece.Update(board, time, speed, collisionTime);
+                currentPiece.Update(board, context);
                 return true;
             }
 
@@ -59,11 +52,14 @@ namespace Core
             Debug.Log($"Piece - Push - {currentPiece}");
         }
 
-        public void SwitchPiece(IBoard board, int level)
+        public void SwitchPiece<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
         {
-            currentPiece = pieceFactory.Build(board, nextPiecePreview);
-            nextPiecePreview = pieceFactory.GetPiecePreview(level);
-            OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
+            currentPiece = context.pieceFactory.Build(board, nextPiecePreview);
+            nextPiecePreview = context.pieceFactory.GetPiecePreview(context.config, context.level);
+
+            if(currentPiece != null)
+                OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
+            
             Debug.Log($"Piece - Switch - {currentPiece} - {nextPiecePreview}");
         }
 

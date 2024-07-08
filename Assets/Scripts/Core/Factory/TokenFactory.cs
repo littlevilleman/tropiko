@@ -6,7 +6,6 @@ namespace Core
     public interface ITokenFactory
     {
         public event BuildToken OnBuildToken;
-
         public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position);
         public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode;
     }

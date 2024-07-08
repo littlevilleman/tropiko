@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Config
 {
     [CreateAssetMenu(fileName = "Data", menuName = "Config/ArcadeMatchConfig", order = 1)]
-    public class ArcadeMatchConfig : MatchConfig, IMatchConfig<IArcadeMatchMode>
+    public class ArcadeMatchConfig : MatchConfig, IArcadeMatchConfig
     {
         public AnimationCurve levelByScore;
         public AnimationCurve speedByLevel;

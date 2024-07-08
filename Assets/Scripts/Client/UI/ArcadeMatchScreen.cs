@@ -6,12 +6,12 @@ namespace Client
 {
     public class ArcadeMatchScreen : UIScreen
     {
-        private ArcadeMatch match;
+        private IArcadeMatch match;
         [SerializeField] private TMP_Text levelLabel;
 
         protected override void OnDisplay(params object[] parameters)
         {
-            match = parameters[0] as ArcadeMatch;
+            match = parameters[0] as IArcadeMatch;
             match.OnLevelUp += OnLevelUp;
 
             levelLabel.text = $"Level {match.CurrentLevel}";

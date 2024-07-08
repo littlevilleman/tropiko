@@ -15,13 +15,17 @@ namespace Core
         public BuildToken OnBuildToken { get; }
     }
 
-    public interface IMatchConfig<in T> where T : IMatchMode
+    public interface IMatchConfig<out T> where T : IMatchMode
     {
-        public int GetLevel(long score);
-        public ITokenConfig GetRandomToken(int level);
-        public float GetLevelSpeed(int level);
-
         public Vector2Int BoardSize { get; }
+        public ITokenConfig GetRandomToken(int level);
+        public int GetLevel(long score);
+        public float GetLevelSpeed(int level);
+    }
+
+    public interface IArcadeMatchConfig : IMatchConfig<IArcadeMatchMode>
+    {
+
     }
 
     public interface IMatch
@@ -52,14 +56,15 @@ namespace Core
 
         protected abstract void OnReceiveScore(IPlayer player, long score);
         protected abstract void OnDefeatPlayer(IPlayer player);
+        protected abstract MatchContext<T> GetContext(float deltaTime);
 
         public Match(IMatchBuilder builder, IMatchConfig<T> configSetup)
         {
             Config = configSetup;
             tokenFactory = new TokenFactory();
-            pieceFactory = new PieceFactory<T>(tokenFactory, Config);
-            boardFactory = new BoardFactory(pieceFactory);
-            playerFactory = new PlayerFactory(boardFactory);
+            pieceFactory = new PieceFactory(tokenFactory);
+            boardFactory = new BoardFactory();
+            playerFactory = new PlayerFactory();
 
             boardFactory.OnBuildBoard += builder.OnBuildBoard;
             tokenFactory.OnBuildToken += builder.OnBuildToken;
@@ -74,7 +79,7 @@ namespace Core
         public virtual void Update(float deltaTime)
         {
             for (int i = 0; i < Players.Length; i++)
-                Players[i].Board.Update(deltaTime, 1f);
+                Players[i].Board.Update(GetContext(deltaTime));
         }
 
         public void Pause(bool pause = true)

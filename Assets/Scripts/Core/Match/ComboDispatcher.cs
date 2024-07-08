@@ -44,7 +44,7 @@ namespace Core
 
             if (comboResult.result == EComboResult.SUCCESS)
             {
-                await board.DispatchCombo(comboResult.tokens, comboIndex + 1);
+                await board.DispatchCombo(comboResult.tokens, comboIndex);
                 comboIndex++;
             }
 
