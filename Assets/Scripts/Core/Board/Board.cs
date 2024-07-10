@@ -14,22 +14,8 @@ namespace Core
         public IPieceHandler PieceHandler { get; }
         public ITombDispatcher TombDispatcher { get; }
         public IComboDispatcher ComboDispatcher { get; }
-        public void Update<T>(MatchContext<T> context) where T : IMatchMode;
+        public void Update(MatchContext context);
         public Task DispatchCombo(List<IToken> comboStack, int index);
-    }
-
-    public abstract class MatchContext<T> where T : IMatchMode
-    {
-        public IMatchConfig<T> config;
-        public IPieceFactory pieceFactory;
-        public int level = 0;
-        public float time = 0f;
-        public float speed = 1f;
-        public float collisionTime = .5f;
-    }
-
-    public class ArcadeMatchContext : MatchContext<IArcadeMatchMode>
-    {
     }
 
     public class Board : TokenMap, IBoard
@@ -49,7 +35,7 @@ namespace Core
             ComboDispatcher = new ComboDispatcher();
         }
 
-        public void Update<T>(MatchContext<T> context) where T : IMatchMode
+        public void Update(MatchContext context)
         {
             if (ComboDispatcher.TryDispatch(this))
                 return;

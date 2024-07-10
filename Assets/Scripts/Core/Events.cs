@@ -5,7 +5,7 @@ namespace Core
 {
     public class Events
     {
-        public delegate void ArcadeMatchLevelUp(int level);
+        public delegate void PlayerLevelUp(int level);
         public delegate void LaunchMatch(IMatch match); 
         public delegate void PauseMatch(IMatch match); 
         public delegate void CloseMatch();

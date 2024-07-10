@@ -1,13 +1,13 @@
 using UnityEngine;
 using static Core.Events;
 
-namespace Core
+namespace Core.Factory
 {
     public interface ITokenFactory
     {
         public event BuildToken OnBuildToken;
         public IToken Build(IBoard board, IToken tokenSetup, Vector2Int position);
-        public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode;
+        public IToken BuildTokenPreview(ITokenConfig config);
     }
 
     public class TokenFactory : ITokenFactory
@@ -30,10 +30,9 @@ namespace Core
             return Build(board, tokenSetup.Type, combo, breaks, fall, position);
         }
 
-        public IToken GetRandomToken<T>(IMatchConfig<T> config, int level) where T : IMatchMode
+        public IToken BuildTokenPreview(ITokenConfig config)
         {
-            ITokenConfig tokenConfig = config.GetRandomToken(level);
-            return new Token(tokenConfig.Type, tokenConfig.Combo, tokenConfig.Break, tokenConfig.Fall);
+            return new Token(config.Type, config.Combo, config.Break, config.Fall);
         }
     }
 }

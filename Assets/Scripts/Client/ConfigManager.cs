@@ -33,9 +33,9 @@ namespace Client
             return palette.GetColor(index);
         }
 
-        public IMatchConfig<T> GetMatchConfig<T>() where T : IMatchMode
+        public T GetMatchConfig<T>() where T : IMatchConfig
         {
-            return match.OfType<IMatchConfig<T>>().FirstOrDefault();
+            return match.OfType<T>().FirstOrDefault();
         }
     }
 }

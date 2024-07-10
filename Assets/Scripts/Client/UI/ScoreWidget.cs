@@ -25,11 +25,12 @@ namespace Client
 
         public void Display(Vector3 position, long score, ECombination combo = ECombination.Combox1)
         {
-            transform.position = position;
+            transform.localPosition = position;
             transform.localScale = Vector3.zero;
             scoreLabel.color = combox1color;
+            scoreLabel.text = score.ToString();
 
-            transform.DOMoveY(position.y + 14f, 1.5f).Play().OnComplete(OnComplete);
+            transform.DOLocalMoveY(position.y + 14f, 1.5f).Play().OnComplete(OnComplete);
             transform.DOScale(1f, .25f).Play();
             transform.DOScale(1.25f, .25f).SetDelay(.25f).SetLoops(2, LoopType.Yoyo).Play();
             scoreLabel.DOColor(Color.white, .25f).SetLoops(2, LoopType.Yoyo).Play();

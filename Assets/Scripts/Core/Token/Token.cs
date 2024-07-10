@@ -75,11 +75,6 @@ namespace Core
             Debug.Log("Token - Locate - " + this);
         }
 
-        public ComboResultContext GetCombo(IBoardMap board)
-        {
-            return comboStrategy.Perform(this, board);
-        }
-
         public void Break(IBoardMap board)
         {
             breakStrategy.Break(board, this);
@@ -107,6 +102,11 @@ namespace Core
             comboStrategy = new LineComboStrategy();
             breakStrategy = new BasicBreakStrategy();
             Debug.Log("Token - Untomb - " + this);
+        }
+
+        public ComboResultContext GetCombo(IBoardMap board)
+        {
+            return comboStrategy.Perform(this, board);
         }
 
         public void Dispose()

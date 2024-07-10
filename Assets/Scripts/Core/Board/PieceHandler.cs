@@ -7,11 +7,11 @@ namespace Core
     {
         public event TakePiece OnTakePiece;
 
-        public bool TryUpdate<T>(IBoard board, MatchContext<T> context) where T : IMatchMode;
+        public bool TryUpdate(IBoard board, MatchContext context);
         public void MovePiece(IBoard board, bool left = false);
         public void RotatePiece(IBoard board, bool left = false);
         public void PushPiece(bool push);
-        public void SwitchPiece<T>(IBoard board, MatchContext<T> context) where T : IMatchMode;
+        public void SwitchPiece(IBoard board, MatchContext context);
         public void LocatePiece(IBoard board);
         public void Dispose();
     }
@@ -23,7 +23,7 @@ namespace Core
         private IPiece currentPiece;
         private IToken[,] nextPiecePreview;
 
-        public bool TryUpdate<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
+        public bool TryUpdate(IBoard board, MatchContext context)
         {
             if (currentPiece != null)
             {
@@ -49,13 +49,13 @@ namespace Core
         public void PushPiece(bool push)
         {
             currentPiece?.Push(push);
-            Debug.Log($"Piece - Push - {currentPiece}");
+            //Debug.Log($"Piece - Push - {currentPiece}");
         }
 
-        public void SwitchPiece<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
+        public void SwitchPiece(IBoard board, MatchContext context)
         {
-            currentPiece = context.pieceFactory.Build(board, nextPiecePreview);
-            nextPiecePreview = context.pieceFactory.GetPiecePreview(context.config, context.level);
+            currentPiece = context.builder.BuildPiece(board, nextPiecePreview);
+            nextPiecePreview = context.PiecePreview;
 
             if(currentPiece != null)
                 OnTakePiece?.Invoke(currentPiece, nextPiecePreview);
@@ -75,5 +75,4 @@ namespace Core
             currentPiece.Dispose();
         }
     }
-
 }

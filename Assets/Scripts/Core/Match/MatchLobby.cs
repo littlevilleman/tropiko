@@ -8,7 +8,7 @@ namespace Core
         public List<PlayerProfile> PlayerProfiles { get; }
         public void AddPlayer(PlayerProfile profile);
         public void RemovePlayer(PlayerProfile profile);
-        public IMatch Build<T>(IMatchBuilder builder, IMatchConfig<T> config) where T : IMatchMode;
+        public IMatch Build(IMatchBuilderDispatcher builder, IMatchConfig config);
     }
 
     public class MatchLobby : IMatchLobby
@@ -30,12 +30,12 @@ namespace Core
             PlayerProfiles.Remove(profile);
         }
 
-        public IMatch Build<T>(IMatchBuilder builder, IMatchConfig<T> config) where T : IMatchMode
+        public IMatch Build(IMatchBuilderDispatcher builder, IMatchConfig config)
         {
-            if (config is IMatchConfig<IArcadeMatchMode> arcadeConfig)
+            if (config is IArcadeMatchConfig arcadeConfig)
                 return new ArcadeMatch(builder, arcadeConfig, PlayerProfiles[0]);
 
-            if (config is IMatchConfig<IMultiplayerMatchMode> multiplayerConfig)
+            if (config is IMultiplayerMatchConfig multiplayerConfig)
                 return new MultiplayerMatch(builder, multiplayerConfig, PlayerProfiles);
 
             return null;

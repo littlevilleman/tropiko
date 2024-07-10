@@ -1,7 +1,7 @@
 using UnityEngine;
 using static Core.Events;
 
-namespace Core
+namespace Core.Factory
 {
     public interface IBoardFactory
     {

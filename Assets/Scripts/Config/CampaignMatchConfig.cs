@@ -5,21 +5,31 @@ namespace Config
 {
 
     [CreateAssetMenu(fileName = "Data", menuName = "Config/CampaignMatchConfig", order = 1)]
-    public class CampaignMatchConfig : MatchConfig, IMatchConfig<ICampaignMatchMode>
+    public class CampaignMatchConfig : MatchConfig, IMatchConfig
     {
         public Vector2Int BoardSize => throw new System.NotImplementedException();
 
-        public int GetLevel(long score)
+        public float GetCollisionTime(long score)
         {
             throw new System.NotImplementedException();
         }
 
-        public float GetLevelSpeed(int level)
+        public int GetPlayerLevel(long score)
         {
             throw new System.NotImplementedException();
         }
 
-        public ITokenConfig GetRandomToken(int level)
+        public float GetSpeed(int level)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ITokenConfig GenerateToken(int level)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public float GetScoreToLevel(int level)
         {
             throw new System.NotImplementedException();
         }

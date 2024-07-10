@@ -202,7 +202,7 @@ TextureImporter:
         width: 42
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 14, y: 14, z: 14, w: 14}
       outline: []
       physicsShape: []
@@ -210,6 +210,48 @@ TextureImporter:
       bones: []
       spriteID: 7283360752e213340a9cfbac1c331ebd
       internalID: 1462522863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sliceable-02_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 27
+        width: 16
+        height: 6
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 4, y: 0, z: 4, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c33ac7db6f9f8be499599fb73d70eec8
+      internalID: 1676431484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sliceable-02_6
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 22
+        width: 12
+        height: 2
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bcf407dc1ad2b8458de86c31bff8a1c
+      internalID: -1540361933
       vertices: []
       indices: 
       edges: []
@@ -230,6 +272,8 @@ TextureImporter:
       sliceable-02_2: 1035938723
       sliceable-02_3: -427099899
       sliceable-02_4: 1462522863
+      sliceable-02_5: 1676431484
+      sliceable-02_6: -1540361933
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,6 +6,5 @@ namespace Config
 {
     public abstract class MatchConfig : ScriptableObject
     {
-        public List<ArcadeMatchLevelConfig> levels;
     }
 }

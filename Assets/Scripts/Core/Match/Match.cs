@@ -1,39 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Core.Events;
 
 namespace Core
 {
-    public enum EMatchMode
-    {
-        Single, Multiplayer
-    }
-
-    public interface IMatchBuilder
-    {
-        public BuildPlayer OnBuildPlayer { get; }
-        public BuildBoard OnBuildBoard { get; }
-        public BuildToken OnBuildToken { get; }
-    }
-
-    public interface IMatchConfig<out T> where T : IMatchMode
-    {
-        public Vector2Int BoardSize { get; }
-        public ITokenConfig GetRandomToken(int level);
-        public int GetLevel(long score);
-        public float GetLevelSpeed(int level);
-    }
-
-    public interface IArcadeMatchConfig : IMatchConfig<IArcadeMatchMode>
-    {
-
-    }
-
     public interface IMatch
     {
         public event LaunchMatch OnLaunch;
         public event PauseMatch OnPause;
         public event CloseMatch OnClose;
 
+        public IMatchConfig Config { get; }
         public IPlayer[] Players { get; }
         public void Launch();
         public void Update(float deltaTime);
@@ -41,54 +18,59 @@ namespace Core
         public void Quit();
     }
 
-    public abstract class Match<T> : IMatch where T : IMatchMode
+    public abstract class MatchContext
+    {
+        public IMatchBuilder builder;
+        public IMatchConfig config;
+        public IPlayer player;
+        public float deltaTime = 0f;
+        public float matchTime = 0f;
+
+        public abstract int Level { get; }
+        public abstract float Speed { get; }
+        public abstract float CollisionTime { get; }
+        public abstract IToken[,] PiecePreview { get; }
+    }
+
+    public abstract class Match : IMatch
     {
         public event LaunchMatch OnLaunch;
         public event CloseMatch OnClose;
         public event PauseMatch OnPause;
-        public IMatchConfig<T> Config { get; protected set; }
+
+        public IMatchConfig Config { get; protected set; }
         public IPlayer[] Players { get; protected set; }
+        protected IMatchBuilder Builder { get; set; }
+        protected float matchTime = 0f;
 
-        protected IPlayerFactory playerFactory;
-        protected IBoardFactory boardFactory;
-        protected IPieceFactory pieceFactory;
-        protected ITokenFactory tokenFactory;
-
-        protected abstract void OnReceiveScore(IPlayer player, long score);
+        protected abstract void OnDispatchCombo(IPlayer player, List<IToken> tokens, int comboIndex);
         protected abstract void OnDefeatPlayer(IPlayer player);
-        protected abstract MatchContext<T> GetContext(float deltaTime);
+        protected abstract MatchContext GetContext(IPlayer player, float deltaTime);
 
-        public Match(IMatchBuilder builder, IMatchConfig<T> configSetup)
+        public virtual void Update(float deltaTime)
         {
-            Config = configSetup;
-            tokenFactory = new TokenFactory();
-            pieceFactory = new PieceFactory(tokenFactory);
-            boardFactory = new BoardFactory();
-            playerFactory = new PlayerFactory();
+            foreach (IPlayer player in Players)
+                player.Update(GetContext(player, deltaTime));
 
-            boardFactory.OnBuildBoard += builder.OnBuildBoard;
-            tokenFactory.OnBuildToken += builder.OnBuildToken;
-            playerFactory.OnBuildPlayer += builder.OnBuildPlayer;
+            matchTime += deltaTime;
         }
 
         public void Launch()
         {
             OnLaunch?.Invoke(this);
-        }
-
-        public virtual void Update(float deltaTime)
-        {
-            for (int i = 0; i < Players.Length; i++)
-                Players[i].Board.Update(GetContext(deltaTime));
+            Debug.Log("Match - Launch - " + this);
         }
 
         public void Pause(bool pause = true)
         {
+            OnPause?.Invoke(this);
+            Debug.Log("Match - Pause - " + this);
         }
 
         public void Quit()
         {
             OnClose?.Invoke();
+            Debug.Log("Match - Close - " + this);
         }
     }
 }

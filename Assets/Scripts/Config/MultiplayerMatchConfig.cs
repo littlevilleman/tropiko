@@ -1,32 +1,39 @@
 using Core;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Config
 {
     [CreateAssetMenu(fileName = "Data", menuName = "Config/MultiplayerMatchConfig", order = 1)]
-    public class MultiplayerMatchConfig : MatchConfig, IMatchConfig<IMultiplayerMatchMode>
+    public class MultiplayerMatchConfig : MatchConfig, IMultiplayerMatchConfig
     {
         public Vector2Int boardSize;
 
         public Vector2Int BoardSize => boardSize;
 
-        public int GetLevel(long score)
+        public float GetCollisionTime(long score)
+        {
+            return .5f;
+        }
+
+        public int GetPlayerLevel(long score)
         {
             return 1;
         }
 
-        public float GetLevelSpeed(int level)
+        public float GetSpeed(int level)
         {
             return 1f;
         }
 
-        public ITokenConfig GetRandomToken(int level)
+        public ITokenConfig GenerateToken(int level)
         {
-            List<TokenConfig> tokens = levels[level].tokens.ToList();
-            return tokens[Random.Range(0, tokens.Count)];
+            //ArcadeMatchTokenConfig tokenConfig = ProbabilityDispatcher.LaunchProbability(tokensConfig, level, levels);
+            return null;
+        }
+
+        public float GetScoreToLevel(int level)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

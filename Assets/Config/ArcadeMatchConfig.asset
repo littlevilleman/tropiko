@@ -12,294 +12,777 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b273993ffe36ccf4cb243a0ba6d84737, type: 3}
   m_Name: ArcadeMatchConfig
   m_EditorClassIdentifier: 
-  levels:
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  - tokens:
-    - {fileID: 11400000, guid: f571f9953de6e374fb6460795a866c7d, type: 2}
-    - {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
-    - {fileID: 11400000, guid: ce37672abdfc61b419d6ee167b3678b9, type: 2}
-    - {fileID: 11400000, guid: c5493e9b8ff1600409eab3b32044b58b, type: 2}
-    - {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
-    - {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
-    - {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
-  levelByScore:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  speedByLevel:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxScore: 1000000
-  boardSize: {x: 6, y: 13}
+  levelsConfig:
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 0
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 5000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 12000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 20000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 30000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 42000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 56000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0
+  - tokensConfig:
+    - token: {fileID: 11400000, guid: 627d9faf3df528445a04189626bbd6c7, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: ce9d9348ec8980a448c622ab4348c7cc, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 0c975d686454b4b46a7ce79f6cc09a65, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - token: {fileID: 11400000, guid: 82d11fdb8f1122744a9abf870b309552, type: 2}
+      spawnByLevel:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    boardSize: {x: 6, y: 13}
+    scoreToComplete: 72000
+    speedFactor: 1
+    collisionTime: 0.5
+    tombsFactor: 0

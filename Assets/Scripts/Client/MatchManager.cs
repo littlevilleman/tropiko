@@ -5,7 +5,7 @@ using static Core.Events;
 
 namespace Client
 {
-    public class MatchManager : MonoBehaviour, IMatchBuilder
+    public class MatchManager : MonoBehaviour, IMatchBuilderDispatcher
     {
         [Header("Pools")]
         [SerializeField] private BoardPool boardPool;
@@ -21,7 +21,7 @@ namespace Client
         public BuildBoard OnBuildBoard => BuildBoard;
         public BuildToken OnBuildToken => BuildToken;
 
-        public void Launch<T>() where T : IMatchMode
+        public void Launch<T>() where T : IMatchConfig
         {
             match = lobby.Build(this, GameManager.Instance.Config.GetMatchConfig<T>());
             match.OnLaunch += OnLaunchMatch;

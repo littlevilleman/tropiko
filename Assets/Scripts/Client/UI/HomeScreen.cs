@@ -17,12 +17,12 @@ namespace Client
 
         private void OnClickMultiPlayerButton()
         {
-            GameManager.Instance.Match.Launch<IMultiplayerMatchMode>();
+            GameManager.Instance.Match.Launch<IMultiplayerMatchConfig>();
         }
 
         private void OnClickSinglePlayerButton()
         {
-            GameManager.Instance.Match.Launch<IArcadeMatchMode>();
+            GameManager.Instance.Match.Launch<IArcadeMatchConfig>();
         }
 
         protected override void OnClose()

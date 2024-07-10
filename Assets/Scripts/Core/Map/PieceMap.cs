@@ -17,9 +17,9 @@ namespace Core.Map
         public bool IsPush { get; private set; }
         public void Push(bool push) { IsPush = push; }
 
-        public virtual void Update<T>(IBoard board, MatchContext<T> context) where T : IMatchMode
+        public virtual void Update(IBoard board, MatchContext context)
         {
-            Vector2 position = Position + context.time * (IsPush ? 20F : context.speed) * Vector2.down;
+            Vector2 position = Position + context.deltaTime * (IsPush ? 20F : context.Speed) * Vector2.down;
 
             for (int x = 0; x < Size.x; x++)
                 for (int y = 0; y < Size.y; y++)

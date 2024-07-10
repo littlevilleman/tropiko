@@ -1,21 +1,24 @@
-using System;
-using System.Collections.Generic;
 using static Core.Events;
 
 namespace Core
 {
     public interface IPlayer
     {
+        public event PlayerLevelUp OnLevelUp;
         public event ReceiveScore OnReceiveScore;
         public event DefeatPlayer OnDefeat;
         public string Name { get; }
         public IBoard Board { get; }
         public long Score { get; }
         public bool IsDefeat { get; }
+        public void Update(MatchContext context);
+        public void ReceiveScore(long score, bool levelUp = false);
+        public void LevelUp(int level);
     }
 
     public class Player : IPlayer
     {
+        public event PlayerLevelUp OnLevelUp;
         public event ReceiveScore OnReceiveScore;
         public event DefeatPlayer OnDefeat;
 
@@ -30,26 +33,29 @@ namespace Core
             Name = name;
 
             board.OnOverflow += OnBoardOverflow;
-            board.OnDispatchCombo += OnComboDispatch;
         }
 
-        private void OnComboDispatch(List<IToken> token, int comboIndex)
+        public void Update(MatchContext context)
         {
-            ReceiveScore(this, 1500);
+            Board?.Update(context);
         }
 
         private void OnBoardOverflow()
         {
             Board.OnOverflow -= OnBoardOverflow;
-            Board.OnDispatchCombo -= OnComboDispatch;
             IsDefeat = true;
             OnDefeat?.Invoke(this);
         }
 
-        public void ReceiveScore(IPlayer player, long score)
+        public void ReceiveScore(long score, bool levelUp = false)
         {
             Score += score;
             OnReceiveScore?.Invoke(this, score);
+        }
+
+        public void LevelUp(int level)
+        {
+            OnLevelUp?.Invoke(level);
         }
     }
 }
