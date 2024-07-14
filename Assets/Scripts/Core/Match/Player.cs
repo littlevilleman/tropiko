@@ -4,7 +4,7 @@ namespace Core
 {
     public interface IPlayer
     {
-        public event PlayerLevelUp OnLevelUp;
+        public event LevelUp OnLevelUp;
         public event ReceiveScore OnReceiveScore;
         public event DefeatPlayer OnDefeat;
         public string Name { get; }
@@ -18,7 +18,7 @@ namespace Core
 
     public class Player : IPlayer
     {
-        public event PlayerLevelUp OnLevelUp;
+        public event LevelUp OnLevelUp;
         public event ReceiveScore OnReceiveScore;
         public event DefeatPlayer OnDefeat;
 

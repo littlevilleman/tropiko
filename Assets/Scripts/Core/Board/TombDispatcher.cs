@@ -7,7 +7,7 @@ namespace Core
     public interface ITombDispatcher
     {
         public void AddCandidates(int count);
-        public bool TryDispatch(IBoard board);
+        public bool TryDispatch(IBoard board, MatchContext context);
     }
 
     public class TombDispatcher : ITombDispatcher
@@ -17,8 +17,11 @@ namespace Core
 
         private int stack;
 
-        public bool TryDispatch(IBoard board)
+        public bool TryDispatch(IBoard board, MatchContext context)
         {
+            int count = Mathf.FloorToInt(context.tombs * board.TokensCount);
+            AddCandidates(count);
+
             foreach (IToken token in board.GetRandomTokens(stack, candidates))
                 candidates.Add(token);
 

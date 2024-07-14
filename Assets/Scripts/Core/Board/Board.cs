@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using static Core.Events;
+using System;
 
 namespace Core
 {
@@ -14,6 +15,7 @@ namespace Core
         public IPieceHandler PieceHandler { get; }
         public ITombDispatcher TombDispatcher { get; }
         public IComboDispatcher ComboDispatcher { get; }
+        public int TokensCount { get; }
         public void Update(MatchContext context);
         public Task DispatchCombo(List<IToken> comboStack, int index);
     }
@@ -25,6 +27,18 @@ namespace Core
         public IPieceHandler PieceHandler { get; private set; }
         public ITombDispatcher TombDispatcher { get; private set; }
         public IComboDispatcher ComboDispatcher { get; private set; }
+
+        public int TokensCount => GetTokensCount();
+
+        private int GetTokensCount()
+        {
+            int count = 0;
+            for (int y = 0; y < Size.y; y++)
+                for (int x = 0; x < Size.x; x++)
+                    count += GetToken(x, y) != null ? 1 : 0;
+
+            return count;
+        }
 
         public Board(Vector2Int sizeSetup, IPieceHandler pieceHandlerSetup)
         {
@@ -43,7 +57,7 @@ namespace Core
             if (PieceHandler.TryUpdate(this, context))
                 return;
 
-            if (TombDispatcher.TryDispatch(this))
+            if (TombDispatcher.TryDispatch(this, context))
                 return;
 
             PieceHandler.SwitchPiece(this, context);

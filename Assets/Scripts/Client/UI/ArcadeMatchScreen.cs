@@ -25,7 +25,7 @@ namespace Client
         private void OnReceiveScore(IPlayer player, long score)
         {
             Debug.Log("SCORE " + player.Score);
-            levelProgressBar.fillAmount = match.LevelProgress;
+            levelProgressBar.fillAmount = match.Progress;
             ScoreWidget scoreWidget = scorePool.Pull(scorePanel);
             scoreWidget.Display(Vector3.zero, score);
         }

@@ -4,13 +4,17 @@ using static Core.Events;
 
 namespace Core
 {
+    public interface ITokenGenerator
+    {
+        public IToken[,] GenerateRandomPiece();
+    }
+
     public interface IMatch
     {
         public event LaunchMatch OnLaunch;
         public event PauseMatch OnPause;
         public event CloseMatch OnClose;
 
-        public IMatchConfig Config { get; }
         public IPlayer[] Players { get; }
         public void Launch();
         public void Update(float deltaTime);
@@ -21,15 +25,14 @@ namespace Core
     public abstract class MatchContext
     {
         public IMatchBuilder builder;
-        public IMatchConfig config;
-        public IPlayer player;
+        public ITokenGenerator tokenGenerator;
+
         public float deltaTime = 0f;
         public float matchTime = 0f;
-
-        public abstract int Level { get; }
-        public abstract float Speed { get; }
-        public abstract float CollisionTime { get; }
-        public abstract IToken[,] PiecePreview { get; }
+        public float collisionTime = .5f;
+        public float speed = 1f;
+        public float tombs = 0f;
+        public int level = 0;
     }
 
     public abstract class Match : IMatch
@@ -38,14 +41,13 @@ namespace Core
         public event CloseMatch OnClose;
         public event PauseMatch OnPause;
 
-        public IMatchConfig Config { get; protected set; }
-        public IPlayer[] Players { get; protected set; }
-        protected IMatchBuilder Builder { get; set; }
-        protected float matchTime = 0f;
-
         protected abstract void OnDispatchCombo(IPlayer player, List<IToken> tokens, int comboIndex);
         protected abstract void OnDefeatPlayer(IPlayer player);
         protected abstract MatchContext GetContext(IPlayer player, float deltaTime);
+
+        public IPlayer[] Players { get; protected set; }
+        protected IMatchBuilder Builder { get; set; }
+        protected float matchTime = 0f;
 
         public virtual void Update(float deltaTime)
         {
@@ -72,5 +74,6 @@ namespace Core
             OnClose?.Invoke();
             Debug.Log("Match - Close - " + this);
         }
+
     }
 }

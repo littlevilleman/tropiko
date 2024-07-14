@@ -1,24 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
+using static Core.Events;
 
 namespace Core
 {
     public interface ICampaignMatch : IMatch
     {
-
     }
 
     public class CampaignMatch : Match, ICampaignMatch
     {
+        public event LaunchStage OnLaunchStage;
+        public event CompleteStage OnCompleteStage;
+
+        private ICampaignMatchConfig config;
+        private ICampaignStageConfig currentStage;
+
         public CampaignMatch(IMatchBuilderDispatcher dispatcher, ICampaignMatchConfig configSetup)
         {
             Builder = new MatchBuilder(dispatcher);
-            Config = configSetup;
-        }
-
-        protected override MatchContext GetContext(IPlayer player, float deltaTime)
-        {
-            throw new System.NotImplementedException();
+            config = configSetup;
+            //CurrentStage = Config.GetStage(0);
         }
 
         protected override void OnDefeatPlayer(IPlayer player)
@@ -31,15 +33,26 @@ namespace Core
 
         protected override void OnDispatchCombo(IPlayer player, List<IToken> tokens, int comboIndex)
         {
-            throw new System.NotImplementedException();
+        }
+
+        protected override MatchContext GetContext(IPlayer player, float deltaTime)
+        {
+            return new CampaignMatchContext
+            {
+                builder = Builder,
+                deltaTime = deltaTime,
+                matchTime = matchTime,
+                level = 0,
+                tokenGenerator = currentStage,
+            };
         }
     }
+
     public class CampaignMatchContext : MatchContext
     {
-        public override int Level => config.GetPlayerLevel(player.Score);
-        public override float Speed => config.GetSpeed(Level);
-        public override float CollisionTime => config.GetCollisionTime(player.Score);
+    }
 
-        public override IToken[,] PiecePreview => builder.GetPiecePreview(config, Level);
+    public interface ICampaignStageConfig : ITokenGenerator
+    {
     }
 }

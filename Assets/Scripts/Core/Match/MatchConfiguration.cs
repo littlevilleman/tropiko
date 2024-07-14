@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Core.Events;
 
@@ -13,15 +14,17 @@ namespace Core
     public interface IMatchConfig
     {
         public Vector2Int BoardSize { get; }
-        public ITokenConfig GenerateToken(int level);
-        public int GetPlayerLevel(long score);
-        public float GetSpeed(int level);
-        public float GetCollisionTime(long score);
-        float GetScoreToLevel(int level);
     }
 
     public interface IArcadeMatchConfig : IMatchConfig
     {
+        public int GetPlayerLevel(long score);
+        public float GetProgress(long score);
+        public float GetScoreToNextLevel(long score);
+        public float GetSpeed(long score);
+        public float GetCollisionTime(long score);
+        public ITokenConfig GenerateRandomToken(long score);
+        public float GetTombs(long score);
     }
 
     public interface IMultiplayerMatchConfig : IMatchConfig
@@ -30,6 +33,17 @@ namespace Core
 
     public interface ICampaignMatchConfig : IMatchConfig
     {
+        public ICampaignStageConfig GetStage(int stage);
+    }
+
+    public interface IArcadeLevelConfig
+    {
+
+    }
+
+    public interface IArcadeLevelTokenConfig
+    {
+
     }
 
     public class MatchConfiguration

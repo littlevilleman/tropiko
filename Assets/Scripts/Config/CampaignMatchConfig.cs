@@ -1,37 +1,36 @@
 using Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Config
 {
 
     [CreateAssetMenu(fileName = "Data", menuName = "Config/CampaignMatchConfig", order = 1)]
-    public class CampaignMatchConfig : MatchConfig, IMatchConfig
+    public class CampaignMatchConfig : MatchConfig, ICampaignMatchConfig
     {
-        public Vector2Int BoardSize => throw new System.NotImplementedException();
+        public List<CampaignStageConfig> stageConfig;
 
-        public float GetCollisionTime(long score)
+        public Vector2Int BoardSize => stageConfig[0].boardSize;
+
+        public ICampaignStageConfig GetStage(int stage)
         {
-            throw new System.NotImplementedException();
+            if (stage >= stageConfig.Count)
+                return stageConfig.Last();
+
+            return stageConfig[stage];
         }
+    }
 
-        public int GetPlayerLevel(long score)
-        {
-            throw new System.NotImplementedException();
-        }
+    [Serializable]
+    public class CampaignStageConfig : ICampaignStageConfig
+    {
+        public Vector2Int boardSize;
 
-        public float GetSpeed(int level)
+        public IToken[,] GenerateRandomPiece()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public ITokenConfig GenerateToken(int level)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public float GetScoreToLevel(int level)
-        {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }

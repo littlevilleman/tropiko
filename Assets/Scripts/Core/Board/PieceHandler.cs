@@ -49,13 +49,13 @@ namespace Core
         public void PushPiece(bool push)
         {
             currentPiece?.Push(push);
-            //Debug.Log($"Piece - Push - {currentPiece}");
+            Debug.Log($"Piece - Push - {currentPiece}");
         }
 
         public void SwitchPiece(IBoard board, MatchContext context)
         {
             currentPiece = context.builder.BuildPiece(board, nextPiecePreview);
-            nextPiecePreview = context.PiecePreview;
+            nextPiecePreview = context.tokenGenerator.GenerateRandomPiece();
 
             if(currentPiece != null)
                 OnTakePiece?.Invoke(currentPiece, nextPiecePreview);

@@ -5,10 +5,12 @@ namespace Core
 {
     public interface IMultiplayerMatch : IMatch
     {
+        public IMultiplayerMatchConfig Config { get; }
     }
 
-    public class MultiplayerMatch : Match, IMultiplayerMatch
+    public class MultiplayerMatch : Match, IMultiplayerMatch, ITokenGenerator
     {
+        public IMultiplayerMatchConfig Config { get; protected set; }
         protected List<IPlayer> AlivePlayers => Players.Where(x => x.IsDefeat == false).ToList();
 
         public MultiplayerMatch(IMatchBuilderDispatcher dispatcher, IMultiplayerMatchConfig configSetup, List<PlayerProfile> profiles)
@@ -40,10 +42,9 @@ namespace Core
         {
             return new MultiplayerMatchContext
             {
-                player = player,
                 deltaTime = deltaTime,
                 builder = Builder,
-                config = Config,
+                tokenGenerator = this
             };
         }
 
@@ -56,13 +57,14 @@ namespace Core
                 //player.AddTombs(2);
             }
         }
+
+        public IToken[,] GenerateRandomPiece()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class MultiplayerMatchContext : MatchContext
     {
-        public override int Level => config.GetPlayerLevel(player.Score);
-        public override float Speed => config.GetSpeed(Level);
-        public override float CollisionTime => config.GetCollisionTime(player.Score);
-        public override IToken[,] PiecePreview => builder.GetPiecePreview(config, Level);
     }
 }

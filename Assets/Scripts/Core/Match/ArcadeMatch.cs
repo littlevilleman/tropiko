@@ -6,24 +6,25 @@ namespace Core
 {
     public interface IArcadeMatch : IMatch
     {
-        int Level { get; }
-        float LevelProgress { get; }
+        public int Level { get; }
+        public float Progress { get; }
     }
 
-    public class ArcadeMatch : Match, IArcadeMatch
+    public class ArcadeMatch : Match, IArcadeMatch, ITokenGenerator
     {
-        public event PlayerLevelUp OnLevelUp;
+        public event LevelUp OnLevelUp;
         protected float entombCooldown = 10f;
+        protected IArcadeMatchConfig config;
 
-        public float LevelProgress => (Players[0].Score * 1f - Config.GetScoreToLevel(Level)) / (Config.GetScoreToLevel(Level +1) - Config.GetScoreToLevel(Level));
+        public int Level => config.GetPlayerLevel(Players[0].Score);
+        public float Progress => (Players[0].Score * 1f - config.GetScoreToNextLevel(Level)) / (config.GetScoreToNextLevel(Level +1) - config.GetScoreToNextLevel(Level));
 
-        public int Level => Config.GetPlayerLevel(Players[0].Score);
 
         public ArcadeMatch(IMatchBuilderDispatcher dispatcher, IArcadeMatchConfig configSetup, PlayerProfile profile)
         {
             Builder = new MatchBuilder(dispatcher);
-            Config = configSetup;
-            Players = new IPlayer[1] { Builder.BuildPlayer(Config, profile.Name) };
+            config = configSetup;
+            Players = new IPlayer[1] { Builder.BuildPlayer(config, profile.Name) };
 
             foreach (IPlayer player in Players)
             {
@@ -48,9 +49,9 @@ namespace Core
 
         protected override void OnDispatchCombo(IPlayer player, List<IToken> tokens, int comboIndex)
         {
-            int level = Config.GetPlayerLevel(player.Score);
+            int level = config.GetPlayerLevel(player.Score);
             player.ReceiveScore(1500);
-            int nextLevel = Config.GetPlayerLevel(player.Score);
+            int nextLevel = config.GetPlayerLevel(player.Score);
 
             if (level < nextLevel)
                 player.LevelUp(nextLevel);
@@ -69,19 +70,24 @@ namespace Core
             return new ArcadeMatchContext
             {
                 builder = Builder,
-                config = Config,
-                player = player,
                 deltaTime = deltaTime,
                 matchTime = matchTime,
+                level = config.GetPlayerLevel(player.Score),
+                speed = config.GetSpeed(player.Score),
+                collisionTime = config.GetCollisionTime(player.Score),
+                tombs = config.GetTombs(player.Score),
+                tokenGenerator = this
             };
+        }
+
+        public IToken[,] GenerateRandomPiece()
+        {
+            ITokenConfig[] tokens = new ITokenConfig[] { config.GenerateRandomToken(Players[0].Score), config.GenerateRandomToken(Players[0].Score), config.GenerateRandomToken(Players[0].Score) };
+            return Builder.GetPiecePreview(tokens);
         }
     }
 
     public class ArcadeMatchContext : MatchContext
     {
-        public override int Level => config.GetPlayerLevel(player.Score);
-        public override float Speed => config.GetSpeed(Level);
-        public override float CollisionTime => config.GetCollisionTime(player.Score);
-        public override IToken[,] PiecePreview => builder.GetPiecePreview(config, Level);
     }
 }

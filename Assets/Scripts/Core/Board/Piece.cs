@@ -44,7 +44,7 @@ namespace Core
                 return;
             }
 
-            CollisionTime = context.CollisionTime;
+            CollisionTime = context.collisionTime;
             State = EPieceState.Control;
             base.Update(board, context);
         }

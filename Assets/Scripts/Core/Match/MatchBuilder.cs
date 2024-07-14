@@ -1,3 +1,4 @@
+using Config;
 using Core.Factory;
 
 namespace Core
@@ -11,7 +12,7 @@ namespace Core
 
         public IPlayer BuildPlayer(IMatchConfig config, string name);
         public IPiece BuildPiece(IBoard board, IToken[,] nextPiecePreview);
-        public IToken[,] GetPiecePreview(IMatchConfig config, int level);
+        public IToken[,] GetPiecePreview(ITokenConfig[] config);
     }
 
     public class MatchBuilder : IMatchBuilder
@@ -33,9 +34,9 @@ namespace Core
             return PlayerFactory.Build(name, BoardFactory.Build(config.BoardSize));
         }
 
-        public IToken[,] GetPiecePreview(IMatchConfig config, int level)
+        public IToken[,] GetPiecePreview(ITokenConfig[] config)
         {
-            return PieceFactory.GetPiecePreview(config, level, TokenFactory);
+            return PieceFactory.GetPiecePreview(config, TokenFactory);
         }
 
         public IPiece BuildPiece(IBoard board, IToken[,] piecePreview)

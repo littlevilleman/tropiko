@@ -25,12 +25,6 @@ namespace Config
             return 1f;
         }
 
-        public ITokenConfig GenerateToken(int level)
-        {
-            //ArcadeMatchTokenConfig tokenConfig = ProbabilityDispatcher.LaunchProbability(tokensConfig, level, levels);
-            return null;
-        }
-
         public float GetScoreToLevel(int level)
         {
             throw new System.NotImplementedException();

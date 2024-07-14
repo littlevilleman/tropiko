@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d411aa9f0eca5464aa28a893080ff9f3, type: 3}
   m_Name: CampaignMatchConfig
   m_EditorClassIdentifier: 
-  levels: []
+  stageConfig:
+  - boardSize: {x: 6, y: 13}

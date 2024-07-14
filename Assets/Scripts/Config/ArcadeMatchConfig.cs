@@ -1,7 +1,6 @@
 using Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Config
@@ -9,81 +8,61 @@ namespace Config
     [CreateAssetMenu(fileName = "Data", menuName = "Config/ArcadeMatchConfig", order = 1)]
     public class ArcadeMatchConfig : MatchConfig, IArcadeMatchConfig
     {
-        public List<ArcadeLevelConfig> levelsConfig;
+        [SerializeField] private Vector2Int boardSize = new Vector2Int(6, 13);
+        [SerializeField] private long maxScore = 1000000;
+        [SerializeField] private List<ArcadeMatchTokenConfig> tokens;
+        [SerializeField] private AnimationCurve level;
+        [SerializeField] private AnimationCurve speed;
+        [SerializeField] private AnimationCurve collisionTime;
+        [SerializeField] private AnimationCurve buryTokens;
 
-        public Vector2Int BoardSize => levelsConfig[0].boardSize;
+        public Vector2Int BoardSize => boardSize;
+
+        public float GetProgress(long score)
+        {
+            return score * 1f / maxScore;
+        }
 
         public int GetPlayerLevel(long score)
         {
-            return levelsConfig.FindLastIndex(x => x.scoreToComplete <= score);
+            return Mathf.FloorToInt(level.Evaluate(GetProgress(score)));
         }
 
-        public float GetScoreToLevel(int level)
+        public float GetScoreToNextLevel(long score)
         {
-            if (level >= levelsConfig.Count)
-                return levelsConfig.Count - 1;
-
-            return levelsConfig[level].scoreToComplete;
+            return maxScore;
         }
 
-        public float GetSpeed(int level)
+        public float GetSpeed(long score)
         {
-            return Mathf.Clamp(levelsConfig[level].speedFactor, 1f, 20f);
+            return Mathf.Clamp(speed.Evaluate(GetProgress(score)), 1f, 20f);
         }
 
-        public ITokenConfig GenerateToken(int level)
-        {
-            ArcadeMatchTokenConfig tokenConfig = ProbabilityDispatcher.LaunchProbability(levelsConfig[level].tokensConfig, level, levelsConfig.Count);
-            return tokenConfig.token;
-        }
         public float GetCollisionTime(long score)
         {
-            return levelsConfig[GetPlayerLevel(score)].collisionTime;
+            return Mathf.Clamp(collisionTime.Evaluate(GetProgress(score)), 0f, .5f);
         }
-    }
 
-    [Serializable]
-    public class ArcadeLevelConfig
-    {
-        public List<ArcadeMatchTokenConfig> tokensConfig;
-        public Vector2Int boardSize = new Vector2Int(6, 13);
-        public long scoreToComplete = 1000000;
-        public float speedFactor = 1f;
-        public float collisionTime = .5f;
-        public float tombsFactor = 0f;
-    }
-
-    public class ProbabilityItem<T>
-    {
-        public float probability;
-        public T item;
-    }
-
-    public static class ProbabilityDispatcher
-    {
-        public static ArcadeMatchTokenConfig LaunchProbability(List<ArcadeMatchTokenConfig> tokensConfig, int currentLevel, int maxLevel)
+        public ITokenConfig GenerateRandomToken(long score)
         {
-            List<ProbabilityItem <ArcadeMatchTokenConfig>> items = new List<ProbabilityItem<ArcadeMatchTokenConfig>>();
-            foreach (ArcadeMatchTokenConfig config in tokensConfig)
-            {
-                float probability = UnityEngine.Random.Range(0f, 1f) * config.Evaluate(currentLevel, maxLevel);
-                items.Add(new ProbabilityItem<ArcadeMatchTokenConfig>() { item = config, probability = probability});
-            }
+            return ProbabilityDispatcher.LaunchProbability(tokens, GetProgress(score)).token;
+        }
 
-            return items.OrderByDescending(x => x.probability).First().item;
+        public float GetTombs(long score)
+        {
+            return Mathf.Clamp(buryTokens.Evaluate(GetProgress(score)), 0f, .5f);
         }
     }
 
-
     [Serializable]
-    public class ArcadeMatchTokenConfig
+    public class ArcadeMatchTokenConfig : IArcadeLevelTokenConfig, IProbabilityItem
     {
         public TokenConfig token;
         public AnimationCurve spawnByLevel;
 
-        public float Evaluate(int level, int maxLevels)
+        public float Evaluate(float progress)
         {
-            return spawnByLevel.Evaluate(level * 1f / maxLevels);
+            return spawnByLevel.Evaluate(progress);
         }
     }
 }

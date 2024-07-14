@@ -5,7 +5,7 @@ namespace Core.Factory
     public interface IPieceFactory
     {
         public IPiece Build(IBoard board, IToken[,] tokens, ITokenFactory tokenFactory);
-        public IToken[,] GetPiecePreview(IMatchConfig config, int level, ITokenFactory tokenFactory);
+        public IToken[,] GetPiecePreview(ITokenConfig[] config, ITokenFactory tokenFactory);
     }
 
     public class PieceFactory : IPieceFactory
@@ -21,13 +21,13 @@ namespace Core.Factory
             return new Piece(tokens);
         }
 
-        public IToken[,] GetPiecePreview(IMatchConfig config, int level, ITokenFactory tokenFactory)
+        public IToken[,] GetPiecePreview(ITokenConfig[] config, ITokenFactory tokenFactory)
         {
             IToken[,] pieceTokens = new IToken[1, 3];
 
             for (int x = 0; x < 1; x++)
                 for (int y = 0; y < 3; y++)
-                    pieceTokens[x, y] = tokenFactory.BuildTokenPreview(config.GenerateToken(level));
+                    pieceTokens[x, y] = tokenFactory.BuildTokenPreview(config[y]);
 
             return pieceTokens;
         }

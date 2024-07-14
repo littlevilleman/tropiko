@@ -40,7 +40,7 @@ namespace Client
         public static Sequence GetPieceStandbySequence(SpriteRenderer pieceBorder, TweenCallback onUpdate)
         {
             return DOTween.Sequence()
-                .Insert(0, pieceBorder.DOColor(GetFadeColor(PIECE_HIGHLIGHT_COLOR, .1f), PIECE_STANDBY_TIME).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine))
+                .Insert(0, pieceBorder.DOColor(GetFadeColor(PIECE_HIGHLIGHT_COLOR, .1f), PIECE_STANDBY_TIME).SetLoops(20, LoopType.Yoyo).SetEase(Ease.InOutSine))
                 .OnUpdate(onUpdate).Play();
         }
 
