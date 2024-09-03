@@ -26,6 +26,7 @@ namespace Core
     {
         public IMatchBuilder builder;
         public ITokenGenerator tokenGenerator;
+        public IArcadeMatchConfig config;
 
         public float deltaTime = 0f;
         public float matchTime = 0f;

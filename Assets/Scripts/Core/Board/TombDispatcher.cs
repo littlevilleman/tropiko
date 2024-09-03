@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -6,54 +5,44 @@ namespace Core
 {
     public interface ITombDispatcher
     {
-        public void AddCandidates(int count);
+        public void AddCandidates(IBoard board, float count);
         public bool TryDispatch(IBoard board, MatchContext context);
     }
 
     public class TombDispatcher : ITombDispatcher
     {
-        private List<IToken> candidates = new List<IToken>();
         private IToken currentCandidate;
-
-        private int stack;
+        private float candidateStack = 0;
 
         public bool TryDispatch(IBoard board, MatchContext context)
         {
-            int count = Mathf.FloorToInt(context.tombs * board.TokensCount);
-            AddCandidates(count);
-
-            foreach (IToken token in board.GetRandomTokens(stack, candidates))
-                candidates.Add(token);
-
-            stack = 0;
-
             if (currentCandidate != null)
                 return true;
 
-            if (candidates.Count > 0)
+            if (candidateStack >= 1)
             {
-                currentCandidate = candidates[0];
-                Dispatch(board, currentCandidate);
+                currentCandidate = board.GetRandomTokens(1, board.Tombs)[0];
+                Dispatch(board);
                 return true;
             }
 
             return false;
         }
 
-        public void AddCandidates(int count)
+        public void AddCandidates(IBoard board, float count)
         {
-            stack += count;
+            candidateStack += count;
             Debug.Log("Board - Stack Tombs - " + this + " - " + count);
         }
 
-        private async void Dispatch(IBoard board, IToken candidate)
+        private async void Dispatch(IBoard board)
         {
-            candidate.Entomb(board, Random.Range(1, 4));
+            currentCandidate.Entomb(board, Random.Range(1, 4));
             await Task.Delay(250);
 
-            candidates.Remove(candidate);
+            candidateStack--;
             currentCandidate = null;
-            Debug.Log("Board - Dispatch Tombs - " + this + " - " + candidate);
+            Debug.Log("Board - Dispatch Tombs - " + this + " - " + currentCandidate);
         }
     }
 }

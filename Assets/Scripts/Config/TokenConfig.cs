@@ -1,5 +1,4 @@
 using Core;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Config
@@ -11,7 +10,7 @@ namespace Config
         public ETokenType type;
         public Color color;
         public Color borderColor;
-        public AnimatorController animator;
+        public RuntimeAnimatorController animator;
         public ETokenType Type => type;
 
         public IComboStrategy Combo => type == ETokenType.BOMB ? new TypeComboStrategy() : new LineComboStrategy();

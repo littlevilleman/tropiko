@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using static Core.Events;
-using System;
 
 namespace Core
 {
@@ -16,6 +15,7 @@ namespace Core
         public ITombDispatcher TombDispatcher { get; }
         public IComboDispatcher ComboDispatcher { get; }
         public int TokensCount { get; }
+        public List<IToken> Tombs { get; }
         public void Update(MatchContext context);
         public Task DispatchCombo(List<IToken> comboStack, int index);
     }
@@ -27,8 +27,8 @@ namespace Core
         public IPieceHandler PieceHandler { get; private set; }
         public ITombDispatcher TombDispatcher { get; private set; }
         public IComboDispatcher ComboDispatcher { get; private set; }
-
         public int TokensCount => GetTokensCount();
+        public List<IToken> Tombs => GetTombTokens();
 
         private int GetTokensCount()
         {
@@ -38,6 +38,20 @@ namespace Core
                     count += GetToken(x, y) != null ? 1 : 0;
 
             return count;
+        }
+
+        private List<IToken> GetTombTokens()
+        {
+            List<IToken> tombs = new List<IToken>();
+            for (int y = 0; y < Size.y; y++)
+                for (int x = 0; x < Size.x; x++)
+                {
+                    var token = GetToken(x, y);
+                    if (token?.Type == ETokenType.TOMB)
+                        tombs.Add(token);
+                }
+
+            return tombs;
         }
 
         public Board(Vector2Int sizeSetup, IPieceHandler pieceHandlerSetup)
@@ -54,13 +68,14 @@ namespace Core
             if (ComboDispatcher.TryDispatch(this))
                 return;
 
-            if (PieceHandler.TryUpdate(this, context))
-                return;
-
             if (TombDispatcher.TryDispatch(this, context))
                 return;
 
+            if (PieceHandler.TryUpdate(this, context))
+                return;
+
             PieceHandler.SwitchPiece(this, context);
+            TombDispatcher.AddCandidates(this, context.tombs);
         }
 
         public void TryLocatePiece(IPiece piece)
