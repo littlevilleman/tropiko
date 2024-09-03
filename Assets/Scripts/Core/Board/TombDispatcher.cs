@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -37,8 +39,8 @@ namespace Core
 
         private async void Dispatch(IBoard board)
         {
-            currentCandidate.Entomb(board, Random.Range(1, 4));
-            await Task.Delay(250);
+            currentCandidate.Entomb(board, UnityEngine.Random.Range(1, 4));
+            await UniTask.Delay(TimeSpan.FromSeconds(.25f));
 
             candidateStack--;
             currentCandidate = null;

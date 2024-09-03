@@ -1,6 +1,7 @@
 using Core.Map;
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using static Core.Events;
 
@@ -17,7 +18,7 @@ namespace Core
         public int TokensCount { get; }
         public List<IToken> Tombs { get; }
         public void Update(MatchContext context);
-        public Task DispatchCombo(List<IToken> comboStack, int index);
+        public UniTask DispatchCombo(List<IToken> comboStack, int index);
     }
 
     public class Board : TokenMap, IBoard
@@ -97,18 +98,18 @@ namespace Core
             ComboDispatcher?.AddCandidate(token);
         }
 
-        public async Task DispatchCombo(List<IToken> comboStack, int index)
+        public async UniTask DispatchCombo(List<IToken> comboStack, int index)
         {
             OnDispatchCombo?.Invoke(comboStack, index);
             Debug.Log("Board - Combo Dispatched - " + comboStack.ToString());
 
-            await Task.Delay(250);
+            await UniTask.Delay(TimeSpan.FromSeconds(.25f));
 
             for (int y = 0; y < Size.y; y++)
                 for (int x = 0; x < Size.x; x++)
                     Tokens[x, y]?.Fall(this);
 
-            await Task.Delay(250);
+            await UniTask.Delay(TimeSpan.FromSeconds(.25f));
         }
 
         public override void Dispose()
